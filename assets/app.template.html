@@ -695,12 +695,14 @@
     dec.options.forEach(function(o){ html += '<button class="dec-opt" type="button" data-key="'+esc(o.key)+'">'+esc(o.label)+'</button>'; });
     html += '</div>';
     dec.options.forEach(function(o){
-      var res=o.result, sm=sanctionMeta(res.sanction), sig=res.signal?SIGNALS.find(function(s){return s.n===res.signal;}):null;
+      var res=o.result, sig=res.signal?SIGNALS.find(function(s){return s.n===res.signal;}):null;
+      var hasSanction = res.sanction && ST[res.sanction];
       html += '<div class="dec-result" data-key="'+esc(o.key)+'" hidden>';
       html += '<div class="dec-result-head"><span class="dec-badge">Your call: '+esc(o.label)+'</span></div>';
       html += '<h4 class="dec-action">'+esc(res.action)+' <code class="r">['+esc(res.refs)+']</code></h4>';
       html += '<div class="sanction-row">';
-      html += '<span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>';
+      if(hasSanction){ var sm=sanctionMeta(res.sanction); html += '<span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>'; }
+      else { html += '<span class="pill none"><span class="dot"></span>No sanction — play on</span>'; }
       if(sig){ html += '<span class="term"><span class="k">Signal</span><span class="signal-badge" style="margin-right:5px">'+sig.n+'</span>'+esc(sig.name)+'</span>'; }
       html += '</div>';
       html += '<p class="dec-detail">'+esc(res.detail)+'</p>';

@@ -415,7 +415,8 @@
         "hit the ball out of the hands"
       ],
       "heading": "Interference",
-      "awardedTo": "The non-infringing team — any player allowed in the area."
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "decisionId": "contact-interference"
     },
     {
       "id": "obstruction-possession",
@@ -469,7 +470,8 @@
         "too close to the player with the ball"
       ],
       "heading": "Player in possession of the ball",
-      "awardedTo": "The non-infringing team — any player allowed in the area."
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "decisionId": "obstruction-attempt"
     },
     {
       "id": "obstruction-no-possession",
@@ -1494,7 +1496,8 @@
         "advantage applied"
       ],
       "heading": "Principles",
-      "awardedTo": null
+      "awardedTo": null,
+      "decisionId": "advantage-or-whistle"
     },
     {
       "id": "bench-behaviour",
@@ -2364,6 +2367,125 @@
             "signal": 20,
             "sanction": "penalty",
             "detail": "If safety was not endangered, penalise 'Causing contact' with a penalty pass where the infringer was standing; apply normal game management (advice, advance/escalate, warning) only if the behaviour repeats. Note: moving into an opponent's landing space still causes contact, so a penalty pass applies."
+          }
+        }
+      ]
+    },
+    "contact-interference": {
+      "prompt": "Contact is only penalised if it actually interfered with the opponent. Did it?",
+      "factors": [
+        "Did it cause the opponent to lose the ball? [17.2a]",
+        "Did it interfere with a passing or shooting action? [17.2b]",
+        "Did it change the opponent's body position and unfairly disadvantage them? [17.2c]"
+      ],
+      "options": [
+        {
+          "key": "penalise",
+          "label": "Yes — it interfered",
+          "result": {
+            "action": "Penalise contact",
+            "refs": "17.1, 17.2",
+            "signal": 20,
+            "sanction": "penalty",
+            "detail": "Award a penalty pass where the infringer was standing (unless that disadvantages the non-infringing team, then where the contacted player was). The infringer stands out of play until the ball is released."
+          }
+        },
+        {
+          "key": "fair",
+          "label": "No — incidental, no interference",
+          "result": {
+            "action": "Play on — fair contest",
+            "refs": "17.3",
+            "signal": null,
+            "sanction": null,
+            "detail": "Incidental contact that does not cause interference is deemed fair contest and is not penalised. Play continues."
+          }
+        },
+        {
+          "key": "danger",
+          "label": "It endangered safety (head/neck, unsafe)",
+          "result": {
+            "action": "Dangerous play — hold time",
+            "refs": "17.9, 19.11",
+            "signal": 22,
+            "sanction": "penalty",
+            "detail": "Treat as dangerous play: hold time, award a penalty pass and apply a game-management action (suspend, or order off for intentional/highly reckless acts). Use the dangerous-play judgement to grade it."
+          }
+        }
+      ]
+    },
+    "obstruction-attempt": {
+      "prompt": "Within 0.9 m (3 ft), obstruction only applies if the defender attempts to defend or interferes. What happened?",
+      "factors": [
+        "Was the defender less than 0.9 m from the landing foot of the player with the ball? [16.1]",
+        "Did they attempt to defend, intercept or deflect, or interfere with the passing/shooting action? [16.7]",
+        "Or were they simply standing with no defending effort? [16.7]"
+      ],
+      "options": [
+        {
+          "key": "penalise",
+          "label": "Attempted to defend / interfered",
+          "result": {
+            "action": "Penalise obstruction",
+            "refs": "16.1, 16.7",
+            "signal": 18,
+            "sanction": "penalty",
+            "detail": "Award a penalty pass where the infringer was standing (unless that disadvantages the non-infringing team, then where the obstructed player was). The infringer stands out of play until the ball is released."
+          }
+        },
+        {
+          "key": "no-effort",
+          "label": "No attempt — just standing there",
+          "result": {
+            "action": "Not obstruction — play on",
+            "refs": "16.7",
+            "signal": null,
+            "sanction": null,
+            "detail": "A defender within 0.9 m who makes no attempt to defend and does not interfere with the passing or shooting action is not obstructing. Play continues."
+          }
+        },
+        {
+          "key": "distance",
+          "label": "Actually 0.9 m or more away",
+          "result": {
+            "action": "Not obstruction — correct distance",
+            "refs": "16.1",
+            "signal": null,
+            "sanction": null,
+            "detail": "If the nearer foot was 0.9 m (3 ft) or more from the landing foot, the defender is at a legal distance and may defend. Play continues."
+          }
+        }
+      ]
+    },
+    "advantage-or-whistle": {
+      "prompt": "An opponent has infringed. Would blowing the whistle disadvantage the non-infringing team — do they have a clear, real chance to play the ball to their advantage?",
+      "safety": "Advantage must NEVER be applied to unfair play, unsporting behaviour, dangerous play, any head/neck contact, or where a player may be seriously injured [7.4]. In those cases, always blow.",
+      "factors": [
+        "Does the non-infringing team have possession or a clear chance to gain it? [7.2]",
+        "Is there a territorial and/or tactical advantage to be gained? [7.2]",
+        "Where are the other players — is the advantage real, not just possible?"
+      ],
+      "options": [
+        {
+          "key": "advantage",
+          "label": "Yes — clear advantage",
+          "result": {
+            "action": "Play advantage",
+            "refs": "7.1-7.3",
+            "signal": 5,
+            "sanction": null,
+            "detail": "Do not blow. Call 'advantage', state the infringement and the infringer's position, and use hand signal 5. If a goal is then scored to the non-infringing team's advantage, award it [7.5]."
+          }
+        },
+        {
+          "key": "whistle",
+          "label": "No — no real advantage",
+          "result": {
+            "action": "Blow the whistle and award the sanction",
+            "refs": "7.1",
+            "signal": null,
+            "sanction": null,
+            "detail": "Penalise the infringement with its normal sanction where it occurred. When in doubt, or for any foul play, blow the whistle."
           }
         }
       ]
