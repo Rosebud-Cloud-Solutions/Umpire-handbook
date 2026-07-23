@@ -1,0 +1,560 @@
+<title>Netball Umpiring Handbook — Scenario Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="A scenario-driven umpiring aid grounded in the World Netball Rules of Netball, 2024 Edition. Describe a match situation and get the correct ruling, sanction, terminology and hand signal." />
+<style>
+  :root {
+    --paper:#F4F6F5; --surface:#FFFFFF; --surface-2:#EDF1EF; --surface-3:#E3EAE7;
+    --ink:#15242B; --ink-soft:#4A5B62; --ink-faint:#7A8B90;
+    --line:#DBE3E0; --line-soft:#E7EDEA;
+    --accent:#0E7C6B; --accent-strong:#0A5D50; --accent-wash:#E2F0EC;
+    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#6B54C6; --danger:#C6413A;
+    --free-wash:#E5F4EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#ECE8F8; --danger-wash:#F8E6E4;
+    --shadow:0 1px 2px rgba(21,36,43,.06), 0 8px 24px rgba(21,36,43,.06);
+    --radius:14px; --radius-sm:9px;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code","Roboto Mono",Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#0E1519; --surface:#16222A; --surface-2:#1C2A32; --surface-3:#243640;
+      --ink:#E9EFEC; --ink-soft:#A2B4AF; --ink-faint:#748A85;
+      --line:#26363E; --line-soft:#202F37;
+      --accent:#26A891; --accent-strong:#3FBEA7; --accent-wash:#123029;
+      --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#957EE0; --danger:#E0655C;
+      --free-wash:#12241A; --penalty-wash:#2A2015; --throwin-wash:#15222F; --possession-wash:#201B31; --danger-wash:#2A1817;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F4F6F5; --surface:#FFFFFF; --surface-2:#EDF1EF; --surface-3:#E3EAE7;
+    --ink:#15242B; --ink-soft:#4A5B62; --ink-faint:#7A8B90; --line:#DBE3E0; --line-soft:#E7EDEA;
+    --accent:#0E7C6B; --accent-strong:#0A5D50; --accent-wash:#E2F0EC;
+    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#6B54C6; --danger:#C6413A;
+    --free-wash:#E5F4EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#ECE8F8; --danger-wash:#F8E6E4;
+    --shadow:0 1px 2px rgba(21,36,43,.06), 0 8px 24px rgba(21,36,43,.06);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1519; --surface:#16222A; --surface-2:#1C2A32; --surface-3:#243640;
+    --ink:#E9EFEC; --ink-soft:#A2B4AF; --ink-faint:#748A85; --line:#26363E; --line-soft:#202F37;
+    --accent:#26A891; --accent-strong:#3FBEA7; --accent-wash:#123029;
+    --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#957EE0; --danger:#E0655C;
+    --free-wash:#12241A; --penalty-wash:#2A2015; --throwin-wash:#15222F; --possession-wash:#201B31; --danger-wash:#2A1817;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; }
+  body {
+    font-family:var(--sans); background:var(--paper); color:var(--ink);
+    line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  ::selection { background:var(--accent-wash); }
+  a { color:var(--accent-strong); }
+
+  /* ---------- Header ---------- */
+  header.app {
+    position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid var(--line);
+  }
+  .bar { max-width:1080px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:14px; }
+  .brand { display:flex; align-items:center; gap:11px; min-width:0; }
+  .whistle {
+    width:34px; height:34px; border-radius:9px; flex:none;
+    background:linear-gradient(150deg,var(--accent),var(--accent-strong));
+    display:grid; place-items:center; color:#fff; box-shadow:var(--shadow);
+  }
+  .whistle svg { width:19px; height:19px; }
+  .brand-text { min-width:0; }
+  .brand-text b { font-size:15px; letter-spacing:-.01em; display:block; line-height:1.15; }
+  .brand-text span { font-size:11.5px; color:var(--ink-faint); letter-spacing:.02em; }
+  .spacer { flex:1; }
+  .tabs { display:flex; gap:2px; background:var(--surface-2); padding:3px; border-radius:11px; border:1px solid var(--line); }
+  .tab {
+    appearance:none; border:0; background:transparent; color:var(--ink-soft); cursor:pointer;
+    font:inherit; font-size:13px; font-weight:600; padding:7px 13px; border-radius:8px; letter-spacing:-.01em;
+    transition:background .15s, color .15s;
+  }
+  .tab:hover { color:var(--ink); }
+  .tab[a-selected="true"] { background:var(--surface); color:var(--accent-strong); box-shadow:var(--shadow); }
+  .theme-btn {
+    appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+    width:36px; height:36px; border-radius:9px; cursor:pointer; display:grid; place-items:center; flex:none;
+  }
+  .theme-btn:hover { color:var(--ink); }
+  .theme-btn svg { width:17px; height:17px; }
+
+  main { max-width:1080px; margin:0 auto; padding:26px 20px 80px; }
+  .view { display:none; animation:fade .25s ease; }
+  .view.active { display:block; }
+  @keyframes fade { from { opacity:0; transform:translateY(4px);} to { opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce){ .view, header.app *, .card { animation:none !important; transition:none !important; } }
+
+  /* ---------- Assistant ---------- */
+  .hero { text-align:left; margin-bottom:18px; }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-strong); }
+  h1 { font-size:clamp(26px,4vw,36px); line-height:1.08; letter-spacing:-.025em; margin:.35em 0 .25em; text-wrap:balance; font-weight:800; }
+  .lede { font-size:16px; color:var(--ink-soft); max-width:60ch; margin:0; }
+
+  .ask { margin-top:22px; }
+  .ask-wrap {
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:8px; display:flex; gap:8px; align-items:flex-end;
+  }
+  .ask-wrap:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-wash), var(--shadow); }
+  textarea#q {
+    flex:1; border:0; background:transparent; color:var(--ink); font:inherit; font-size:16px;
+    resize:none; padding:11px 10px; max-height:200px; min-height:26px; line-height:1.45; outline:none;
+  }
+  textarea#q::placeholder { color:var(--ink-faint); }
+  .go {
+    appearance:none; border:0; cursor:pointer; background:var(--accent); color:#fff; font:inherit; font-weight:650;
+    padding:11px 18px; border-radius:10px; font-size:14.5px; flex:none; display:inline-flex; align-items:center; gap:7px;
+    transition:background .15s, transform .05s;
+  }
+  .go:hover { background:var(--accent-strong); }
+  .go:active { transform:translateY(1px); }
+  .go svg { width:16px; height:16px; }
+
+  .examples { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .examples .lbl { font-size:12.5px; color:var(--ink-faint); font-weight:600; margin-right:2px; }
+  .chip {
+    appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+    font:inherit; font-size:12.5px; padding:6px 11px; border-radius:20px; cursor:pointer; transition:.15s;
+  }
+  .chip:hover { border-color:var(--accent); color:var(--accent-strong); background:var(--accent-wash); }
+
+  .results { margin-top:26px; }
+  .result-head { display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .result-head h2 { font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin:0; font-weight:700; }
+  .conf { font-size:12px; color:var(--ink-faint); }
+  .conf b { color:var(--ink-soft); }
+
+  /* ---------- Ruling card ---------- */
+  .card {
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden; margin-bottom:16px; animation:fade .3s ease;
+  }
+  .card.slim { box-shadow:none; }
+  .card-top { display:flex; gap:6px; padding:16px 18px 0; align-items:flex-start; flex-wrap:wrap; }
+  .rule-tag {
+    font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent-strong);
+    background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap;
+  }
+  .cat-tag { font-size:12px; color:var(--ink-faint); font-weight:600; padding:3px 2px; }
+  .card-body { padding:10px 18px 18px; }
+  .card h3 { font-size:19px; letter-spacing:-.02em; margin:.1em 0 .5em; line-height:1.2; font-weight:750; text-wrap:balance; }
+  .card.slim h3 { font-size:16px; }
+
+  .sanction-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:2px 0 14px; }
+  .pill {
+    display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:700; letter-spacing:-.01em;
+    padding:6px 12px; border-radius:22px; border:1px solid transparent;
+  }
+  .pill .dot { width:8px; height:8px; border-radius:50%; }
+  .pill.free { color:var(--free); background:var(--free-wash); border-color:color-mix(in srgb,var(--free) 25%,transparent);} .pill.free .dot{background:var(--free);}
+  .pill.penalty { color:var(--penalty); background:var(--penalty-wash); border-color:color-mix(in srgb,var(--penalty) 25%,transparent);} .pill.penalty .dot{background:var(--penalty);}
+  .pill.throwin { color:var(--throwin); background:var(--throwin-wash); border-color:color-mix(in srgb,var(--throwin) 25%,transparent);} .pill.throwin .dot{background:var(--throwin);}
+  .pill.possession { color:var(--possession); background:var(--possession-wash); border-color:color-mix(in srgb,var(--possession) 25%,transparent);} .pill.possession .dot{background:var(--possession);}
+  .pill.none { color:var(--ink-soft); background:var(--surface-2); border-color:var(--line);} .pill.none .dot{background:var(--ink-faint);}
+  .term {
+    font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line); padding:5px 10px; border-radius:7px;
+  }
+  .term .k { color:var(--ink-faint); font-weight:600; margin-right:6px; text-transform:uppercase; font-size:10.5px; letter-spacing:.06em;}
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:4px; }
+  @media (max-width:640px){ .grid2 { grid-template-columns:1fr; } }
+  .field { background:var(--surface-2); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:11px 13px; }
+  .field .lbl { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:4px; display:flex; align-items:center; gap:6px;}
+  .field .val { font-size:13.5px; color:var(--ink); line-height:1.5; }
+  .signal-badge {
+    display:inline-grid; place-items:center; width:20px; height:20px; border-radius:6px; flex:none;
+    background:var(--accent); color:#fff; font-size:11px; font-weight:700; font-family:var(--mono);
+  }
+
+  .block { margin-top:16px; }
+  .block > .lbl { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:9px; display:flex; align-items:center; gap:7px;}
+  ol.steps { margin:0; padding:0; list-style:none; counter-reset:s; }
+  ol.steps li { counter-increment:s; position:relative; padding:0 0 11px 34px; font-size:14px; color:var(--ink); line-height:1.5; }
+  ol.steps li::before {
+    content:counter(s); position:absolute; left:0; top:-1px; width:22px; height:22px; border-radius:6px;
+    background:var(--accent-wash); color:var(--accent-strong); font-size:12px; font-weight:700; display:grid; place-items:center; font-family:var(--mono);
+  }
+  ol.steps li:last-child { padding-bottom:0; }
+  ul.ind { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px; }
+  ul.ind li { position:relative; padding-left:22px; font-size:13.5px; color:var(--ink-soft); line-height:1.45; }
+  ul.ind li::before { content:""; position:absolute; left:4px; top:8px; width:6px; height:6px; border-radius:2px; background:var(--accent); transform:rotate(45deg); }
+  .note { margin-top:14px; font-size:13px; color:var(--ink-soft); background:var(--penalty-wash); border-left:3px solid var(--penalty); padding:10px 13px; border-radius:0 8px 8px 0; }
+  .note b { color:var(--ink); }
+  code.r { font-family:var(--mono); font-size:12px; background:var(--surface-3); padding:1px 5px; border-radius:4px; color:var(--ink-soft); }
+
+  .empty { text-align:center; padding:40px 20px; color:var(--ink-soft); }
+  .empty svg { width:40px; height:40px; color:var(--ink-faint); margin-bottom:10px; }
+
+  /* ---------- Library ---------- */
+  .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:18px; }
+  .search {
+    flex:1; min-width:200px; display:flex; align-items:center; gap:8px; background:var(--surface);
+    border:1px solid var(--line); border-radius:10px; padding:9px 13px; box-shadow:var(--shadow);
+  }
+  .search:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-wash); }
+  .search svg { width:16px; height:16px; color:var(--ink-faint); flex:none; }
+  .search input { flex:1; border:0; background:transparent; font:inherit; font-size:14.5px; color:var(--ink); outline:none; }
+  .cats { display:flex; gap:7px; flex-wrap:wrap; }
+  .catbtn {
+    appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+    font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:20px; cursor:pointer; transition:.15s;
+  }
+  .catbtn:hover { color:var(--ink); border-color:var(--ink-faint); }
+  .catbtn[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .lib-count { font-size:12.5px; color:var(--ink-faint); margin:2px 2px 14px; }
+
+  /* ---------- Signals ---------- */
+  .sig-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; }
+  .sig {
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); padding:14px 15px; box-shadow:var(--shadow);
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .sig .n { flex:none; width:30px; height:30px; border-radius:8px; background:var(--accent); color:#fff; font-family:var(--mono); font-weight:700; font-size:14px; display:grid; place-items:center; }
+  .sig b { font-size:14px; letter-spacing:-.01em; display:block; margin-bottom:3px; line-height:1.25; }
+  .sig p { margin:0; font-size:12.5px; color:var(--ink-soft); line-height:1.45; }
+
+  /* ---------- About ---------- */
+  .prose { max-width:68ch; }
+  .prose h2 { font-size:20px; letter-spacing:-.02em; margin:26px 0 8px; }
+  .prose h3 { font-size:15px; margin:20px 0 6px; }
+  .prose p, .prose li { font-size:14.5px; color:var(--ink-soft); line-height:1.6; }
+  .prose ul { padding-left:20px; }
+  .callout { background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:14px 16px; margin:16px 0; box-shadow:var(--shadow); }
+  .callout p { margin:0; color:var(--ink); font-size:14px; }
+  .disclaimer { font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--line); margin-top:34px; padding-top:16px; }
+  .roadmap { display:grid; gap:10px; margin:14px 0; }
+  .phase { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:13px 15px; box-shadow:var(--shadow); }
+  .phase b { font-size:13.5px; } .phase .tag { font-family:var(--mono); font-size:11px; color:var(--accent-strong); background:var(--accent-wash); padding:2px 7px; border-radius:5px; margin-right:8px;}
+  .phase p { margin:5px 0 0; font-size:13px; }
+</style>
+
+<header class="app">
+  <div class="bar">
+    <div class="brand">
+      <div class="whistle" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="14" r="6"/><path d="M15 11l6-3M15 14h6M9 14h.01"/></svg>
+      </div>
+      <div class="brand-text">
+        <b>Netball Umpiring Handbook</b>
+        <span>Rules of Netball · 2024 Edition</span>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button class="tab" role="tab" data-view="assistant" aria-selected="true">Assistant</button>
+      <button class="tab" role="tab" data-view="library" aria-selected="false">Rulings</button>
+      <button class="tab" role="tab" data-view="signals" aria-selected="false">Signals</button>
+      <button class="tab" role="tab" data-view="about" aria-selected="false">About</button>
+    </nav>
+    <button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ASSISTANT -->
+  <section class="view active" id="view-assistant" role="tabpanel">
+    <div class="hero">
+      <div class="eyebrow">Scenario Assistant</div>
+      <h1>Describe what happened. Get the correct ruling.</h1>
+      <p class="lede">Type a match situation in plain language — as you would call it on court — and the assistant returns the ruling, sanction, exact umpire terminology, hand signal and step-by-step procedure, grounded in the 2024 Rules of Netball.</p>
+    </div>
+
+    <div class="ask">
+      <div class="ask-wrap">
+        <textarea id="q" rows="1" placeholder="e.g. The GA caught the ball, lifted her landing foot and stepped again before passing…"></textarea>
+        <button class="go" id="goBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Rule on it
+        </button>
+      </div>
+      <div class="examples" id="examples">
+        <span class="lbl">Try:</span>
+      </div>
+    </div>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section class="view" id="view-library" role="tabpanel">
+    <div class="hero">
+      <div class="eyebrow">Rulings Library</div>
+      <h1>Every infringement, its sanction and procedure.</h1>
+    </div>
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="libSearch" type="search" placeholder="Search rulings, terminology, rule numbers…" />
+      </label>
+    </div>
+    <div class="cats" id="cats"></div>
+    <p class="lib-count" id="libCount"></p>
+    <div id="libList"></div>
+  </section>
+
+  <!-- SIGNALS -->
+  <section class="view" id="view-signals" role="tabpanel">
+    <div class="hero">
+      <div class="eyebrow">Umpire Hand Signals</div>
+      <h1>The 23 official signals.</h1>
+      <p class="lede">As illustrated in the Rules of Netball, 2024 Edition (pages 70–77).</p>
+    </div>
+    <div class="sig-grid" id="sigGrid"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="view-about" role="tabpanel">
+    <div class="prose">
+      <div class="eyebrow">About</div>
+      <h1>How this handbook works.</h1>
+      <div class="callout">
+        <p><b>Point of truth:</b> every ruling in this app is grounded verbatim in the <b>World Netball — Rules of Netball, 2024 Edition</b>. Rule references in square brackets, e.g. <code class="r">[13.1]</code>, point to the exact clause. Where translated wording diverges, the English text is authoritative.</p>
+      </div>
+
+      <h2>What it does today</h2>
+      <p>This is the first working prototype — a single, self-contained web page you can open in a browser or host as a static site (e.g. Azure Static Web Apps). It contains three tools:</p>
+      <ul>
+        <li><b>Scenario Assistant</b> — describe a situation and get the matched ruling with sanction, terminology, position, signal and procedure.</li>
+        <li><b>Rulings Library</b> — browse and search every infringement by category.</li>
+        <li><b>Hand Signals</b> — the 23 official umpire signals.</li>
+      </ul>
+      <p>The assistant currently matches your description against a curated, rules-grounded knowledge base entirely on your device — nothing is sent anywhere. This keeps every answer traceable to a specific rule, which is exactly what an umpiring aid needs.</p>
+
+      <h2>Where it is going</h2>
+      <div class="roadmap">
+        <div class="phase"><span class="tag">Now</span><b>Grounded prototype</b><p>Static HTML + on-device ruling engine over the full 2024 rulebook. Hosted in the RCS Azure environment for review.</p></div>
+        <div class="phase"><span class="tag">Next</span><b>Conversational assistant</b><p>Natural-language chatbot backed by an LLM constrained to the rulebook (retrieval-augmented), so it answers nuanced, multi-part scenarios while still citing the rule. Backend hosted in Azure.</p></div>
+        <div class="phase"><span class="tag">Then</span><b>iPhone &amp; Android apps</b><p>Native/hybrid mobile apps sharing the same rules engine and API, with offline access for court-side use.</p></div>
+      </div>
+
+      <p class="disclaimer">This tool is a decision-support aid for match officials and is not a substitute for the full Rules of Netball or formal umpire training and accreditation. Umpire judgement always applies, and player safety is the paramount consideration in every decision. “Rules of Netball” © World Netball. This prototype is produced by Rosebud Cloud Solutions for umpire education and reference.</p>
+    </div>
+  </section>
+</main>
+
+<script id="rulesData" type="application/json">/*__RULES_DATA__*/</script>
+<script>
+(function(){
+  "use strict";
+  var DATA = JSON.parse(document.getElementById('rulesData').textContent);
+  var RULINGS = DATA.rulings, SIGNALS = DATA.signals, ST = DATA.sanctionTypes;
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+
+  /* ---- Theme ---- */
+  var root = document.documentElement;
+  $('#themeBtn').addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    if(!cur){ cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'; }
+    root.setAttribute('data-theme', cur==='dark'?'light':'dark');
+  });
+
+  /* ---- Tabs ---- */
+  function showView(v){
+    $$('.tab').forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.view===v)); });
+    $$('.view').forEach(function(s){ s.classList.toggle('active', s.id==='view-'+v); });
+    if(v==='library' && !libRendered){ renderLibrary(); libRendered=true; }
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+  $$('.tab').forEach(function(t){ t.addEventListener('click', function(){ showView(t.dataset.view); }); });
+
+  /* ---- Rendering helpers ---- */
+  function sanctionMeta(key){
+    if(!key) return { cls:'none', label:'No sanction — play on / procedure' };
+    var m = ST[key] || {};
+    return { cls:key, label:m.label || key };
+  }
+  function rulingCard(r, slim){
+    var sm = sanctionMeta(r.sanction);
+    var sig = r.signal ? SIGNALS.find(function(s){return s.n===r.signal;}) : null;
+    var html = '';
+    html += '<article class="card'+(slim?' slim':'')+'">';
+    html += '<div class="card-top"><span class="rule-tag">Rule '+esc(r.rule)+'</span><span class="cat-tag">· '+esc(r.category)+'</span></div>';
+    html += '<div class="card-body">';
+    html += '<h3>'+esc(r.title)+'</h3>';
+    html += '<div class="sanction-row">';
+    html += '<span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>';
+    if(r.terminology){ html += '<span class="term"><span class="k">Call</span>'+esc(r.terminology)+'</span>'; }
+    html += '</div>';
+
+    html += '<div class="grid2">';
+    html += '<div class="field"><div class="lbl">Where it is taken</div><div class="val">'+esc(r.position)+'</div></div>';
+    if(sig){
+      html += '<div class="field"><div class="lbl">Hand signal</div><div class="val"><span class="signal-badge">'+sig.n+'</span> '+esc(sig.name)+' — '+esc(sig.how)+'</div></div>';
+    } else {
+      html += '<div class="field"><div class="lbl">Hand signal</div><div class="val">No specific hand signal — call the terminology clearly.</div></div>';
+    }
+    html += '</div>';
+
+    if(r.keyIndicators && r.keyIndicators.length){
+      html += '<div class="block"><div class="lbl">What to look for</div><ul class="ind">';
+      r.keyIndicators.forEach(function(k){ html += '<li>'+esc(k)+'</li>'; });
+      html += '</ul></div>';
+    }
+    html += '<div class="block"><div class="lbl">Procedure</div><ol class="steps">';
+    r.procedure.forEach(function(p){ html += '<li>'+esc(p)+'</li>'; });
+    html += '</ol></div>';
+    if(r.notes){ html += '<div class="note"><b>Note:</b> '+esc(r.notes)+'</div>'; }
+    html += '</div></article>';
+    return html;
+  }
+
+  /* ---- Matching engine ---- */
+  var STOP = {'the':1,'a':1,'an':1,'and':1,'or':1,'of':1,'to':1,'in':1,'on':1,'at':1,'is':1,'was':1,'were':1,'her':1,'his':1,'their':1,'she':1,'he':1,'they':1,'it':1,'with':1,'for':1,'from':1,'then':1,'that':1,'this':1,'has':1,'had':1,'have':1,'but':1,'as':1,'by':1,'into':1,'out':1,'up':1,'over':1,'not':1,'no':1,'did':1,'do':1,'player':1,'players':1,'ball':1,'umpire':1,'when':1,'while':1,'after':1,'before':1,'so':1,'i':1,'my':1};
+  var SYN = { // normalise common phrasings to canonical keyword tokens
+    'stepped':'step','steps':'step','stepping':'step','travelled':'travel','traveling':'travel','traveled':'travel',
+    'pushed':'push','pushing':'push','shoved':'push','barged':'push','bumped':'knock','bump':'knock','knocked':'knock',
+    'grabbed':'grab','held':'hold','holding':'hold','leant':'lean','leaned':'lean','leaning':'lean',
+    'seconds':'second','sec':'second','secs':'second','3':'three',
+    'defending':'defend','defended':'defend','defends':'defend',
+    'intercepted':'intercept','intercepting':'intercept',
+    'obstructed':'obstruction','obstructing':'obstruction',
+    'contacted':'contact','contacting':'contact','collided':'contact','collision':'contact',
+    'shot':'shoot','shooting':'shoot','shoots':'shoot','shooter':'shoot',
+    'kicked':'kick','kicking':'kick','fisted':'fist','punched':'fist',
+    'bounced':'bounce','batted':'bat','tipped':'bat',
+    'offside':'offside','sub':'substitution','subbed':'substitution','substitute':'substitution','substituted':'substitution',
+    'bleeding':'blood','bled':'blood','injured':'injury','hurt':'injury','concussed':'concussion',
+    'retaliated':'retaliation','abused':'abusive','swore':'abusive','swearing':'abusive','swearing':'abusive',
+    'delayed':'delaying','wasting':'delaying','stalling':'held',
+    'landed':'land','landing':'land','caught':'catch','catching':'catch',
+    'circle':'circle','third':'third','line':'line','post':'goalpost'
+  };
+  function norm(t){ t = t.toLowerCase().replace(/[^a-z0-9\s'.-]/g,' '); return t; }
+  function tokens(t){
+    return norm(t).split(/\s+/).map(function(w){ return SYN[w]||w; }).filter(function(w){ return w && !STOP[w] && w.length>1; });
+  }
+  // Precompute index
+  var INDEX = RULINGS.map(function(r){
+    var kw = {}; // term -> weight
+    (r.keywords||[]).forEach(function(k){
+      var phrase = k.indexOf(' ')>-1;
+      kw[k] = phrase ? 5 : 2.5;
+      // also index the mapped-single tokens of the keyword so singular hits count
+      tokens(k).forEach(function(tk){ if(!kw[tk]) kw[tk]=phrase?2:2.5; });
+    });
+    tokens(r.title).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.5; });
+    tokens(r.category).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.2; });
+    tokens((r.keyIndicators||[]).join(' ')).forEach(function(tk){ kw[tk]=(kw[tk]||0)+0.4; });
+    if(r.terminology) tokens(r.terminology).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.5; });
+    return { r:r, kw:kw };
+  });
+  function score(query){
+    var qn = ' '+norm(query)+' ';
+    var qtok = tokens(query);
+    var qset = {}; qtok.forEach(function(t){ qset[t]=1; });
+    var out = INDEX.map(function(entry){
+      var s=0, hits={};
+      // phrase matches (multi-word keywords) against raw normalised query
+      (entry.r.keywords||[]).forEach(function(k){
+        if(k.indexOf(' ')>-1 && qn.indexOf(' '+norm(k)+' ')>-1){ s+=6; hits[k]=1; }
+      });
+      // token weight matches
+      for(var term in entry.kw){
+        if(term.indexOf(' ')>-1) continue;
+        if(qset[term]){ s+=entry.kw[term]; hits[term]=1; }
+      }
+      // small boost: proportion of distinct query tokens that hit
+      var distinct = Object.keys(hits).length;
+      s += distinct*0.6;
+      return { r:entry.r, s:s, hits:distinct };
+    }).filter(function(x){ return x.s>0; });
+    out.sort(function(a,b){ return b.s-a.s; });
+    return out;
+  }
+
+  function renderResults(query){
+    var box = $('#results');
+    var ranked = score(query);
+    if(!ranked.length){
+      box.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><p>No confident match yet. Try naming the action — e.g. <em>“stepped”, “pushed the shooter”, “defended too close”, “ball went out”</em> — or browse the <a href="#" data-jump="library">Rulings Library</a>.</p></div>';
+      wireJump(box); return;
+    }
+    var top = ranked[0];
+    var alts = ranked.slice(1,4).filter(function(x){ return x.s >= top.s*0.35; });
+    var strong = top.s >= 7 || (ranked[1] ? top.s >= ranked[1].s*1.4 : true);
+    var confTxt = strong ? 'Best match' : 'Closest match — check it fits';
+    var html = '';
+    html += '<div class="result-head"><h2>'+confTxt+'</h2><span class="conf">for “<b>'+esc(query.length>70?query.slice(0,70)+'…':query)+'</b>”</span></div>';
+    html += rulingCard(top.r, false);
+    if(alts.length){
+      html += '<div class="result-head" style="margin-top:22px"><h2>Other possibilities</h2></div>';
+      alts.forEach(function(a){ html += rulingCard(a.r, true); });
+    }
+    box.innerHTML = html;
+  }
+  function wireJump(scope){
+    $$('[data-jump]', scope).forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); showView(a.dataset.jump); }); });
+  }
+
+  var q = $('#q'), goBtn = $('#goBtn');
+  function autosize(){ q.style.height='auto'; q.style.height=Math.min(q.scrollHeight,200)+'px'; }
+  q.addEventListener('input', autosize);
+  function run(){ var v=q.value.trim(); if(v){ renderResults(v); } }
+  goBtn.addEventListener('click', run);
+  q.addEventListener('keydown', function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); run(); } });
+
+  var EXAMPLES = [
+    "GA lifted her landing foot and put it down again before passing",
+    "Defender was closer than a metre with arms up over the shooter",
+    "GD pushed the shooter as she released the shot",
+    "A long pass flew over a whole third without anyone touching it",
+    "WA stepped into the centre third before the whistle",
+    "Player caught the ball and landed with one foot over the sideline",
+    "Two opposing players grabbed the ball at exactly the same time",
+    "Shooter held the ball for four seconds before shooting",
+    "Defender knocked an airborne player and she landed on her head"
+  ];
+  var exWrap = $('#examples');
+  EXAMPLES.forEach(function(x){
+    var b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=x;
+    b.addEventListener('click', function(){ q.value=x; autosize(); renderResults(x); q.focus(); });
+    exWrap.appendChild(b);
+  });
+
+  /* ---- Library ---- */
+  var libRendered=false, activeCat='All', libQuery='';
+  var CATS = ['All'].concat(RULINGS.map(function(r){return r.category;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
+  function renderCats(){
+    var c=$('#cats'); c.innerHTML='';
+    CATS.forEach(function(cat){
+      var b=document.createElement('button'); b.className='catbtn'; b.type='button'; b.textContent=cat;
+      b.setAttribute('aria-pressed', String(cat===activeCat));
+      b.addEventListener('click', function(){ activeCat=cat; renderCats(); renderLibList(); });
+      c.appendChild(b);
+    });
+  }
+  function renderLibList(){
+    var list=$('#libList'); var qn=libQuery.toLowerCase().trim();
+    var items = RULINGS.filter(function(r){
+      if(activeCat!=='All' && r.category!==activeCat) return false;
+      if(!qn) return true;
+      var hay=(r.title+' '+r.category+' '+r.rule+' '+r.terminology+' '+(r.keywords||[]).join(' ')).toLowerCase();
+      return hay.indexOf(qn)>-1;
+    });
+    $('#libCount').textContent = items.length+' ruling'+(items.length===1?'':'s')+(activeCat==='All'?'':' in '+activeCat)+(qn?' matching “'+libQuery.trim()+'”':'');
+    list.innerHTML = items.length ? items.map(function(r){ return rulingCard(r,false); }).join('') :
+      '<div class="empty"><p>No rulings match. Try a different search or category.</p></div>';
+  }
+  function renderLibrary(){ renderCats(); renderLibList(); }
+  $('#libSearch').addEventListener('input', function(e){ libQuery=e.target.value; renderLibList(); });
+
+  /* ---- Signals ---- */
+  var sg=$('#sigGrid');
+  sg.innerHTML = SIGNALS.map(function(s){
+    return '<div class="sig"><div class="n">'+s.n+'</div><div><b>'+esc(s.name)+'</b><p>'+esc(s.how)+'</p></div></div>';
+  }).join('');
+
+  // Deep-link support for "browse library" link
+  wireJump(document);
+})();
+</script>
