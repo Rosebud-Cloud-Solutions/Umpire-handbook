@@ -393,7 +393,8 @@
     var sig = r.signal ? SIGNALS.find(function(s){return s.n===r.signal;}) : null;
     var html = '';
     html += '<article class="card'+(slim?' slim':'')+'">';
-    html += '<div class="card-top"><span class="rule-tag">Rule '+esc(r.rule)+'</span><span class="cat-tag">· '+esc(r.category)+'</span></div>';
+    var ruleFull = esc(r.ruleName || r.category) + (r.heading ? ' — ' + esc(r.heading) : '');
+    html += '<div class="card-top"><span class="rule-tag">Rule '+esc(r.rule)+'</span><span class="cat-tag">· '+ruleFull+'</span></div>';
     html += '<div class="card-body">';
     html += '<h3>'+esc(r.title)+'</h3>';
 
