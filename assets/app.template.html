@@ -194,6 +194,24 @@
   .note b { color:var(--ink); }
   code.r { font-family:var(--mono); font-size:12px; background:var(--surface-3); padding:1px 5px; border-radius:4px; color:var(--ink-soft); }
 
+  /* Game-management escalation card */
+  .gm-card { border-left:3px solid var(--accent); }
+  .gm-lead { font-size:14px; color:var(--ink); line-height:1.55; margin:2px 0 4px; }
+  .gm-ladder { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; counter-reset:none; }
+  .gm-ladder li { display:flex; gap:11px; align-items:flex-start; }
+  .gm-dot { flex:none; width:22px; height:22px; border-radius:6px; display:grid; place-items:center; font-size:12px; font-weight:700; font-family:var(--mono); }
+  .gm-done .gm-dot { background:var(--free-wash); color:var(--free); border:1px solid color-mix(in srgb,var(--free) 30%,transparent); }
+  .gm-next .gm-dot { background:var(--accent); color:#fff; }
+  .gm-later .gm-dot { background:var(--surface-2); color:var(--ink-faint); border:1px solid var(--line); }
+  .gm-step { font-size:13.5px; color:var(--ink); line-height:1.4; }
+  .gm-step b { font-weight:700; }
+  .gm-next .gm-step b { color:var(--accent-strong); }
+  .gm-later .gm-step { color:var(--ink-faint); }
+  .gm-later .gm-step b { color:var(--ink-soft); }
+  .gm-desc { display:block; font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+  .gm-later .gm-desc { color:var(--ink-faint); }
+  .gm-underlying { font-size:13.5px; color:var(--ink); line-height:1.6; margin:0; }
+
   .empty { text-align:center; padding:40px 20px; color:var(--ink-soft); }
   .empty svg { width:40px; height:40px; color:var(--ink-faint); margin-bottom:10px; }
 
@@ -528,12 +546,93 @@
     return out;
   }
 
+  /* ---- Game-management escalation reasoning (Rule 18) ---- */
+  var GM = DATA.gameManagement || null;
+  function detectGameManagement(qn){
+    if(!GM) return null;
+    // Which game-management action has ALREADY been taken?
+    var priors = [
+      { i:0, re:/proactive advice|gave (her|him|them|the player|a player)?\s*advice|given (her|him|them|the player|a player)?\s*advice|already advised|advised (her|him|them|the player)|spoke to (her|him|them|the player)|had a word|been spoken to/ },
+      { i:1, re:/advanced (the )?(sanction|penalty)|escalat(ed|e)d? (the )?(sanction|penalty|free pass)|advanced and escalated|already advanced/ },
+      { i:2, re:/(gave|given|issued|already)\s+(a\s+)?warning|formally warned|been warned|has been warned|already warned|warned (her|him|them|the player)/ },
+      { i:3, re:/suspend(ed)?|suspension (has|was) (given|awarded)|already suspended/ },
+      { i:4, re:/ordered off|ordering off/ }
+    ];
+    var priorIndex = -1;
+    priors.forEach(function(p){ if(p.re.test(qn)) priorIndex = Math.max(priorIndex, p.i); });
+    var continues = /continu\w*|still|again|persist\w*|repeat\w*|keeps|kept|carries on|carry on|does it again|won'?t stop|not stopping|hasn'?t stopped/.test(qn);
+    var asksNext = /what (should|do|shall|would|can) i|what('?s| is) next|next (step|action)|do now|happens next|escalat/.test(qn);
+    var mentionsGm = /game management|proactive advice|advance the sanction|escalate/.test(qn);
+    if(priorIndex >= 0 && (continues || asksNext || mentionsGm)){
+      var nextIndex = Math.min(priorIndex + 1, GM.ladder.length - 1);
+      return { priorIndex:priorIndex, nextIndex:nextIndex };
+    }
+    return null;
+  }
+  function gmCard(gm, underlying, query){
+    var next = GM.ladder[gm.nextIndex], prior = GM.ladder[gm.priorIndex];
+    var atTop = gm.priorIndex >= GM.ladder.length - 1;
+    var html = '<article class="card gm-card">';
+    html += '<div class="card-top"><span class="rule-tag">Rule '+esc(GM.rule)+'</span><span class="cat-tag">· Game management — '+esc(GM.heading)+'</span></div>';
+    html += '<div class="card-body">';
+    html += '<h3>Next game-management action: '+esc(next.label)+'</h3>';
+    html += '<p class="gm-lead">You’ve already given <b>'+esc(prior.label.toLowerCase())+'</b> and the player continues to infringe. '
+      + (atTop ? 'This is the final step on the ladder.' : 'The next game-management action is to <b>'+esc(next.label.toLowerCase())+'</b>.')
+      + '</p>';
+    // The ladder, showing done / next / later
+    html += '<div class="block"><div class="lbl">Game-management ladder [18.6]</div><ol class="gm-ladder">';
+    GM.ladder.forEach(function(step, i){
+      var state = i <= gm.priorIndex ? 'done' : (i === gm.nextIndex ? 'next' : 'later');
+      var mark = state==='done' ? '✓' : (i+1);
+      html += '<li class="gm-'+state+'"><span class="gm-dot">'+mark+'</span><span class="gm-step"><b>'+esc(step.label)+'</b> <code class="r">['+esc(step.ref)+']</code><span class="gm-desc">'+esc(step.desc)+'</span></span></li>';
+    });
+    html += '</ol></div>';
+    // Also penalise the underlying infringement
+    if(underlying){
+      var sm = sanctionMeta(underlying.sanction);
+      html += '<div class="block"><div class="lbl">Also penalise the infringement</div>'
+        + '<p class="gm-underlying">Apply the sanction for <b>'+esc(underlying.ruleName)+(underlying.heading?' — '+esc(underlying.heading):'')+'</b> as normal: '
+        + '<span class="pill '+sm.cls+'" style="vertical-align:middle"><span class="dot"></span>'+esc(sm.label)+'</span> '
+        + esc(underlying.position)+'</p></div>';
+    }
+    html += '<div class="block"><div class="lbl">Procedure</div><ol class="steps">';
+    html += '<li>'+ (underlying
+        ? 'Penalise the '+esc((underlying.terminology||underlying.ruleName)).toLowerCase()+' with its sanction ('+esc(sanctionMeta(underlying.sanction).label).toLowerCase()+').'
+        : 'Penalise the infringement with its sanction.') +'</li>';
+    if(!atTop){
+      html += '<li>Apply the next game-management action — <b>'+esc(next.label.toLowerCase())+'</b>: '+esc(next.desc)+'</li>';
+    } else {
+      html += '<li>'+esc(next.desc)+'</li>';
+    }
+    html += '<li>Keep the action proportionate to the behaviour; if the player still continues, move to the next step on the ladder.</li>';
+    html += '</ol></div>';
+    html += '<div class="note"><b>Note:</b> '+esc(GM.notes)+'</div>';
+    html += '</div></article>';
+    return html;
+  }
+
   function renderResults(query){
     var box = $('#results');
+    var qn = ' '+query.toLowerCase().replace(/[^a-z0-9\s'.-]/g,' ')+' ';
     var ranked = score(query);
-    if(!ranked.length){
+    var gm = detectGameManagement(qn);
+    if(!ranked.length && !gm){
       box.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><p>No confident match yet. Try naming the action — e.g. <em>“stepped”, “pushed the shooter”, “defended too close”, “ball went out”</em> — or browse the <a href="#" data-jump="library">Rulings Library</a>.</p></div>';
       wireJump(box); return false;
+    }
+    var html = '';
+    if(gm){
+      // A game-management escalation question: lead with the next action, referencing the underlying infringement.
+      var underlying = ranked.length ? ranked[0].r : null;
+      html += '<div class="result-head"><h2>Game management — what to do next</h2></div>';
+      html += '<div class="asked"><span class="asked-lbl">Your scenario</span><p>'+esc(query)+'</p></div>';
+      html += gmCard(gm, underlying, query);
+      if(underlying){
+        html += '<div class="result-head" style="margin-top:22px"><h2>The underlying infringement</h2></div>';
+        html += rulingCard(underlying, false);
+      }
+      box.innerHTML = html;
+      return true;
     }
     var top = ranked[0];
     var strong = top.s >= 7 || (ranked[1] ? top.s >= ranked[1].s*1.4 : true);
@@ -541,7 +640,6 @@
     // Only surface genuinely close alternatives, so a dominant answer stays uncluttered.
     var thresh = (strong ? 0.6 : 0.4) * top.s;
     var alts = ranked.slice(1,4).filter(function(x){ return x.s >= thresh && x.s >= 4; }).slice(0,2);
-    var html = '';
     html += '<div class="result-head"><h2>'+confTxt+'</h2></div>';
     html += '<div class="asked"><span class="asked-lbl">Your scenario</span><p>'+esc(query)+'</p></div>';
     html += rulingCard(top.r, false);

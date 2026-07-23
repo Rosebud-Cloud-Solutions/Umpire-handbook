@@ -18,6 +18,25 @@ async function ask(q) {
   return { title, answer };
 }
 
+// Game-management escalation reasoning (Rule 18) is a bespoke response, tested separately.
+async function gmCheck() {
+  const q = "I have already given the Red GD proactive advice about obstruction. She continues to mark her player within 3ft. What should I do?";
+  await page.fill('#q', q);
+  await page.click('#goBtn');
+  await page.waitForTimeout(120);
+  const gmTitle = await page.$eval('#results .gm-card h3', el => el.textContent).catch(() => '');
+  const nextStep = await page.$eval('#results .gm-ladder li.gm-next .gm-step b', el => el.textContent).catch(() => '');
+  const doneStep = await page.$eval('#results .gm-ladder li.gm-done .gm-step b', el => el.textContent).catch(() => '');
+  const hasObstruction = (await page.$$eval('#results .card h3', els => els.map(e => e.textContent))).some(t => /Obstruction/i.test(t));
+  const ok = /Advance and\/or escalate the sanction/i.test(gmTitle)
+    && /Advance and\/or escalate the sanction/i.test(nextStep)
+    && /Proactive advice/i.test(doneStep)
+    && hasObstruction;
+  console.log((ok ? 'PASS' : 'FAIL') + ' | game-management escalation: advice given -> advance the sanction (+ obstruction)');
+  if (!ok) console.log('       gmTitle="' + gmTitle + '" next="' + nextStep + '" done="' + doneStep + '" obstruction=' + hasObstruction);
+  return ok;
+}
+
 // [query, expected substring in title, expected substring in the answer block (rule heading etc.)]
 const cases = [
   // --- general phrasing ---
@@ -61,6 +80,9 @@ for (const [q, expTitle, expAns] of cases) {
   console.log((ok ? 'PASS' : 'FAIL') + ' | ' + q);
   if (!ok) console.log('       got title="' + title + '" | heading-check "' + expAns + '"=' + okA);
 }
-console.log('\n' + pass + '/' + cases.length + ' passed | console errors: ' + (errors.length ? errors.join('; ') : 'none'));
+const gmOk = await gmCheck();
+const total = cases.length + 1;
+const passed = pass + (gmOk ? 1 : 0);
+console.log('\n' + passed + '/' + total + ' passed | console errors: ' + (errors.length ? errors.join('; ') : 'none'));
 await browser.close();
-process.exit(pass === cases.length && errors.length === 0 ? 0 : 1);
+process.exit(passed === total && errors.length === 0 ? 0 : 1);
