@@ -68,6 +68,9 @@ const cases = [
   ["Red GK standing with the ball in the defending third throws it and it is caught by the red WA in the attacking third", "Over a third", "Over a third"],
   ["the ball was thrown over the centre third and caught in the goal third without being touched in the middle", "Over a third", "Over a third"],
   ["GD standing outside the court tried to defend the GA on court", "Defending from out of court", "Defending from out of court"],
+  // reported bug: leaving the field of play (for a drink) -> treated as a late player, not "ball out of court"
+  ["A player leaves the court to have a drink, what should I do?", "Leaving the field of play", "Player outside the court"],
+  ["a player went off court to get free space", "Leaving the court", "Player outside the court"],
 ];
 
 let pass = 0;

@@ -641,6 +641,56 @@
       "awardedTo": "The non-infringing team — any player allowed in the area."
     },
     {
+      "id": "leaving-field-of-play",
+      "category": "Out of court",
+      "rule": "15.9",
+      "ruleName": "Out of court",
+      "heading": "Player outside the court",
+      "page": 52,
+      "title": "Leaving the field of play without permission (e.g. for a drink)",
+      "sanction": "possession",
+      "terminology": "Incorrect entry (treated as a late player)",
+      "position": "Possession to the opposing team where the ball was when play stopped. The player is sent from the court and may only return at the next break in play after advising the umpire [3.8].",
+      "signal": 6,
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "keyIndicators": [
+        "A player leaves the field of play during play without the umpire's permission — for any reason (drink, rest, etc.)",
+        "A player may only move into the court surround to reposition back onto the court [15.7] — leaving for any other reason is not allowed"
+      ],
+      "procedure": [
+        "A player who leaves the field of play without the umpire's permission is treated as a late player [15.9], [3.8].",
+        "Award possession to the opposing team where the ball was when play stopped, and give hand signal 6.",
+        "The player is sent from the court until the correct time for entry — the next break in play, after advising the umpire [3.8].",
+        "Distinction: merely moving into the court surround for a reason other than repositioning is 'Leaving the court' — a penalty pass [15.7]. Leaving the field of play entirely (e.g. to the bench) is treated as a late player [15.9]."
+      ],
+      "notes": "A player may only move off the court to reposition back onto it [15.7]. Leaving to have a drink, to rest, or for any other reason without the umpire's permission is not allowed and is treated as a late player [15.9], [3.8].",
+      "keywords": [
+        "leaves the court",
+        "leave the court",
+        "left the court",
+        "leaves the field of play",
+        "left the field of play",
+        "leave the field of play",
+        "off the court for a drink",
+        "have a drink",
+        "for a drink",
+        "get a drink",
+        "to have a drink",
+        "to get a drink",
+        "went off for a drink",
+        "left to rest",
+        "for a rest",
+        "leaves without permission",
+        "left without permission",
+        "without permission",
+        "without the umpire's permission",
+        "walked off",
+        "went off court to",
+        "left the court to",
+        "leaves the court to"
+      ]
+    },
+    {
       "id": "defending-out-of-court",
       "category": "Out of court",
       "rule": "15.10",

@@ -534,9 +534,9 @@
   }
   // Some rulings are impossible without a specific context; suppress them otherwise.
   function suppressed(id, outCtx){
-    // "Defending from out of court" and "Leaving the court" require the player to
-    // actually be out of / leaving the court. Without that context, never suggest them.
-    return (id === 'defending-out-of-court' || id === 'leaving-court') && !outCtx;
+    // "Defending from out of court" requires the player to actually be out of court;
+    // without that context, the bare word "defending" must not trigger it.
+    return (id === 'defending-out-of-court') && !outCtx;
   }
   function score(query){
     var qn = ' '+norm(query)+' ';
