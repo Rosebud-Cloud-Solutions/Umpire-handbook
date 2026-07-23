@@ -1659,5 +1659,236 @@
         "stopped coming back on"
       ]
     }
+  ],
+  "rules": [
+    {
+      "no": 1,
+      "name": "Technical specifications",
+      "summary": "Defines the court, its areas and the equipment.",
+      "points": [
+        "Court is rectangular, level and firm: side lines 30.5 m (100 ft), goal lines 15.25 m (50 ft).",
+        "Two transverse lines split the court into three equal thirds — a centre third and two goal thirds.",
+        "Centre circle 0.9 m (3 ft) diameter; goal circle a semi-circle of radius 4.9 m (16 ft) at each end.",
+        "All lines are 50 mm (2 in) wide and are part of the area they bound; the court surround is 3.05 m (10 ft).",
+        "During play only on-court players and umpires are allowed in the field of play.",
+        "Goalpost: padded pole 3.05 m (10 ft) high; ring internal diameter 380 mm (15 in); net 380–457 mm.",
+        "Match ball: circumference 690–710 mm, weight 400–450 g, inflated as marked; may be rotated during the match."
+      ]
+    },
+    {
+      "no": 2,
+      "name": "Time",
+      "summary": "Match length, intervals and extra time.",
+      "points": [
+        "Four quarters of 15 minutes; 4-minute intervals between 1st–2nd and 3rd–4th; half-time 12 minutes (or 8 by agreement).",
+        "Teams change ends each quarter.",
+        "A period may be extended only for a penalty pass awarded in the attacking goal circle before the end signal.",
+        "Extra time (if set): 4-minute interval, two halves of up to 7 minutes, 1-minute half-time; if still tied, play until a team leads by two goals."
+      ]
+    },
+    {
+      "no": 3,
+      "name": "Team",
+      "summary": "Players, playing positions, uniforms and team officials.",
+      "points": [
+        "Up to 12 players (max 7 on court at a time), one of whom must play Centre; a team must have at least 5 to take the court.",
+        "Positions and permitted areas — GS: 1,2 · GA: 1,2,3 · WA: 2,3 · C: 2,3,4 · WD: 3,4 · GD: 3,4,5 · GK: 4,5.",
+        "Uniform with position initials 150 mm (6 in) front and back; suitable non-spiked footwear.",
+        "No body piercings, dangerous adornment or communication devices; nails short and smooth; hair tied back.",
+        "Failure to take the court and late players (incorrect entry) are dealt with here.",
+        "Captains toss for centre pass / goal end; team officials up to five (or six with a team doctor)."
+      ]
+    },
+    {
+      "no": 4,
+      "name": "Match officials",
+      "summary": "The two umpires and the reserve umpire.",
+      "points": [
+        "Two umpires control the match, each responsible for one half of the court including that goal line.",
+        "Before the match they check the court, goalposts, balls and players meet the rules.",
+        "The whistle starts/ends play, restarts after a goal, and signals infringements; it is only needed for out-of-court when unclear.",
+        "Umpires move along the side line and behind the goal line and may hold time for injury, blood, emergencies or foul play.",
+        "The reserve umpire replaces an ill/injured umpire and supervises suspended or ordered-off players."
+      ]
+    },
+    {
+      "no": 5,
+      "name": "Technical and event officials",
+      "summary": "Scorers, timekeepers and the event organiser.",
+      "points": [
+        "Scorers keep the score, record centre passes, team changes and substitutions, and confirm the correct centre pass on appeal.",
+        "Timekeepers time each period and interval, hold and restart time on the umpire's signal, and time suspension/ordered-off periods.",
+        "The event organiser prepares the enclosure, goalposts and balls, arranges an independent concussion observer, and may abandon a match for safety."
+      ]
+    },
+    {
+      "no": 6,
+      "name": "Sanctions and actions",
+      "summary": "Free pass, penalty pass, throw-in and possession — and how each is taken.",
+      "points": [
+        "Free pass for minor infringements (no shot may be taken from it); penalty pass for major infringements.",
+        "At a penalty pass the infringer must stand out of play, taking no part until the ball is released (else 'Participating').",
+        "Throw-in taken from outside the court with a foot within 15 cm of the line at the point indicated.",
+        "Possession is awarded where the ball was when play stopped (e.g. simultaneous/mutual infringements).",
+        "A sanction/action must be correctly 'set' before it is played, and must observe playing-the-ball, passing-distance and footwork rules.",
+        "A player must not infringe during a break in play (between ball out and throw-in, after a goal, during a stoppage, etc.)."
+      ]
+    },
+    {
+      "no": 7,
+      "name": "Advantage",
+      "summary": "Playing on when a whistle would disadvantage the non-infringing team.",
+      "points": [
+        "The umpire refrains from whistling if that would disadvantage the non-infringing team, and calls 'advantage' with the infringement.",
+        "Advantage may be territorial, tactical, or both.",
+        "Advantage must NOT be applied to unfair play, unsporting behaviour, dangerous play, any head/neck contact, or a possible serious injury.",
+        "If a goal is then scored to the non-infringing team's advantage, the umpire awards the goal."
+      ]
+    },
+    {
+      "no": 8,
+      "name": "Centre pass",
+      "summary": "Starting and restarting play with the centre pass.",
+      "points": [
+        "Centre passes alternate between the two Centres; umpires check the correct centre pass with the scorers.",
+        "The passing Centre stands with at least one foot wholly in the centre circle and releases within three seconds.",
+        "All other players must be onside in their correct thirds; only the two Centres may be in the centre third before the whistle ('Breaking').",
+        "A centre pass must be caught or touched by a player standing in, or landing first/both feet in, the centre third ('Untouched')."
+      ]
+    },
+    {
+      "no": 9,
+      "name": "Scoring a goal",
+      "summary": "How a goal is scored and the rules for taking a shot.",
+      "points": [
+        "A goal is scored when the ball passes completely through the ring from a shot by GS or GA inside the goal circle.",
+        "A shot deflected by a defender that still goes through counts; a defender may not move the post or deflect a shot on its downward flight ('Interference with shot').",
+        "When shooting, the player must have no ground contact outside the goal circle ('Incorrect shot'), shoot within three seconds, and obey footwork."
+      ]
+    },
+    {
+      "no": 10,
+      "name": "Stoppages",
+      "summary": "Substitutions, team changes, injury/illness, blood and emergencies.",
+      "points": [
+        "Substitutions/team changes are allowed during an interval or a stoppage for injury/illness/blood; tactical changes may be made after a goal by holding time.",
+        "Umpires must hold time for injury/illness on a verifiable request or obvious injury, and when they notice blood.",
+        "The player concerned leaves the court within 30 seconds; only primary care persons may come on to assess.",
+        "Play restarts from where the ball was; if a position is left vacant the player/substitute returns at the next break in play."
+      ]
+    },
+    {
+      "no": 11,
+      "name": "Playing the ball",
+      "summary": "Gaining and keeping possession, and prohibited ways of playing the ball.",
+      "points": [
+        "Ways to gain possession: catch; roll to oneself; catch a rebound off the post; bat once then catch; bounce once then catch; touch in an uncontrolled manner then catch.",
+        "A player must pass or shoot within three seconds ('Held ball') and may not replay the ball after releasing it ('Repossession').",
+        "A player may not fall on the ball or play it while lying/sitting/kneeling ('Playing ball on ground'), or use the goalpost as a support.",
+        "Prohibited: kicking, striking with a fist, rolling the ball to another player, or passing/shooting while on the ground."
+      ]
+    },
+    {
+      "no": 12,
+      "name": "Passing distances",
+      "summary": "The short pass and the over-a-third rules.",
+      "points": [
+        "There must be enough space for an opponent to contest a pass ('Short pass').",
+        "The ball must be caught or touched by a player in each third; it may not travel over a complete third untouched ('Over a third').",
+        "A player astride the transverse line must have their pass taken in one of those two thirds."
+      ]
+    },
+    {
+      "no": 13,
+      "name": "Footwork",
+      "summary": "Legal footwork for one-foot and two-foot landings.",
+      "points": [
+        "One-foot landing: the landing foot may be lifted but the ball must be passed/shot before it is regrounded; the other foot may step or pivot.",
+        "Two-foot landing: either foot may become the landing foot; step/pivot on it but pass/shoot before regrounding the lifted foot.",
+        "A player may not drag/slide the landing foot, hop, or jump from and land on both feet while still holding the ball ('Footwork')."
+      ]
+    },
+    {
+      "no": 14,
+      "name": "Offside",
+      "summary": "Entering an area not designated for your position.",
+      "points": [
+        "A player is offside when they enter a court area not allowed for their position, with or without the ball.",
+        "Not offside if a body part is on (but not over) the line of their own area, or when reaching in without grounding in that area.",
+        "If two opposing players go offside one before the other, the first is penalised; if simultaneous and neither touches the ball, play on."
+      ]
+    },
+    {
+      "no": 15,
+      "name": "Out of court",
+      "summary": "Ball and players in relation to the court boundary.",
+      "points": [
+        "The ball is out of court when it touches the ground/an object/a person outside the court; a throw-in is awarded to the team that did not last touch it.",
+        "A player is out of court if they catch/hold the ball while touching the ground outside the court.",
+        "A player may not leave the court to gain an advantage ('Leaving the court') or defend an on-court player from outside ('Defending from out of court')."
+      ]
+    },
+    {
+      "no": 16,
+      "name": "Obstruction",
+      "summary": "Defending distance and use of the arms.",
+      "points": [
+        "A defender must be at least 0.9 m (3 ft) — measured on the ground from the landing foot — before attempting to defend, intercept or deflect ('Obstruction — player in possession').",
+        "Within 0.9 m a player may reach to catch/deflect/intercept a pass or rebound, or briefly signal, but not use arm movements to prevent an opponent's movement ('Obstruction — player not in possession').",
+        "A defender may be within 0.9 m if making no attempt to defend and not interfering with the passing/shooting action."
+      ]
+    },
+    {
+      "no": 17,
+      "name": "Contact",
+      "summary": "Fair contest versus penalised contact, and causing contact.",
+      "points": [
+        "Physical contact that unfairly interferes with an opponent is penalised ('Contact'); incidental contact that does not interfere is fair contest.",
+        "A player who jumps must be allowed to land; an opponent must not move into or fail to yield that landing space ('Causing contact').",
+        "A player must not move so late/close into a moving opponent's path that they cannot stop or change direction.",
+        "Contact endangering safety — especially head/neck — is treated as dangerous play."
+      ]
+    },
+    {
+      "no": 18,
+      "name": "Game management",
+      "summary": "How umpires manage behaviour and discipline.",
+      "points": [
+        "Game management actions, in escalating order: proactive advice; advance and/or escalate a sanction; warning; suspension (2 minutes); ordering off (4 minutes, no return).",
+        "Any foul play must receive the appropriate game management action, proportionate to the behaviour, with player safety paramount.",
+        "Team officials and bench players must stay at the bench and must not criticise umpires, abuse, or enter the court ('Bench behaviour' / 'Bench movement')."
+      ]
+    },
+    {
+      "no": 19,
+      "name": "Foul play",
+      "summary": "Unfair play, unsporting behaviour and dangerous play.",
+      "points": [
+        "Unfair play: delaying play, intentional or repeated infringing, disputing a ruling, or intimidation — penalty pass which is advanced.",
+        "Unsporting behaviour: retaliation, abuse, or actions against good sporting behaviour — penalty pass and at least a warning.",
+        "Dangerous play: any forceful, careless, reckless or dangerous action affecting safety — penalty pass and suspension, or ordering off for intentional/highly reckless acts."
+      ]
+    },
+    {
+      "no": 20,
+      "name": "Simultaneous and mutual infringements",
+      "summary": "Deciding outcomes when fault cannot be separated.",
+      "points": [
+        "For simultaneous or mutual infringements, possession is awarded to the team that last had the ball before the infringement.",
+        "If two opposing players are simultaneously offside or break at a centre pass and neither touches the ball, play continues.",
+        "If both umpires whistle together for opposing teams, the more significant sanction stands (foul play > major > minor/action)."
+      ]
+    },
+    {
+      "no": 21,
+      "name": "Variations for other levels of play",
+      "summary": "Permitted variations for non-international play.",
+      "points": [
+        "The rules are written for international play; variations may be made for other levels while keeping the integrity of the game.",
+        "Examples: outdoor courts and lower-grade (2-ply) balls; a lower goalpost or smaller ball for young children.",
+        "Time may be played in halves (up to 20 minutes) and intervals shortened; teams may be mixed; fewer officials may be appointed.",
+        "Variations are decided by the controlling authority for the competition."
+      ]
+    }
   ]
 }

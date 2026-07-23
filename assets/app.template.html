@@ -215,6 +215,29 @@
   .catbtn[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:var(--accent); }
   .lib-count { font-size:12.5px; color:var(--ink-faint); margin:2px 2px 14px; }
 
+  /* Rules accordion */
+  .rule-acc { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); box-shadow:var(--shadow); margin-bottom:10px; overflow:hidden; }
+  .rule-acc > summary {
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px; padding:14px 16px;
+    font-weight:700; color:var(--ink); user-select:none;
+  }
+  .rule-acc > summary::-webkit-details-marker { display:none; }
+  .rule-acc > summary:hover { background:var(--surface-2); }
+  .rule-no { flex:none; min-width:30px; height:30px; padding:0 7px; border-radius:8px; background:var(--accent); color:#fff; font-family:var(--mono); font-weight:700; font-size:14px; display:grid; place-items:center; }
+  .rule-name { flex:1; font-size:15.5px; letter-spacing:-.01em; }
+  .rule-meta { font-size:12px; color:var(--ink-faint); font-weight:600; white-space:nowrap; }
+  .rule-chev { flex:none; color:var(--ink-faint); transition:transform .2s; }
+  .rule-acc[open] > summary .rule-chev { transform:rotate(180deg); }
+  .rule-acc[open] > summary { border-bottom:1px solid var(--line-soft); }
+  .rule-panel { padding:14px 16px 6px; }
+  .rule-summary { font-size:14px; color:var(--ink-soft); margin:0 0 12px; line-height:1.55; }
+  .rule-points { margin:0 0 8px; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .rule-points li { position:relative; padding-left:20px; font-size:13.5px; color:var(--ink); line-height:1.5; }
+  .rule-points li::before { content:""; position:absolute; left:3px; top:8px; width:6px; height:6px; border-radius:2px; background:var(--accent); transform:rotate(45deg); }
+  .rulings-head { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin:16px 0 10px; }
+  .rule-panel .card { margin-bottom:12px; }
+  .rule-none { font-size:13px; color:var(--ink-faint); font-style:italic; margin:6px 0 10px; }
+
   /* ---------- Signals ---------- */
   .sig-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; }
   .sig {
@@ -287,15 +310,16 @@
   <section class="view" id="view-library" role="tabpanel">
     <div class="hero">
       <div class="eyebrow">Rulings Library</div>
-      <h1>Every infringement, its sanction and procedure.</h1>
+      <h1>The Rules of Netball, rule by rule.</h1>
+      <p class="lede">The full list of all 21 rules. Tap a rule to open its provisions and every detailed ruling under it.</p>
     </div>
     <div class="toolbar">
       <label class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="libSearch" type="search" placeholder="Search rulings, terminology, rule numbers…" />
+        <input id="libSearch" type="search" placeholder="Search rules, rulings, terminology…" />
       </label>
+      <button class="catbtn" id="expandAll" type="button">Expand all</button>
     </div>
-    <div class="cats" id="cats"></div>
     <p class="lib-count" id="libCount"></p>
     <div id="libList"></div>
   </section>
@@ -571,32 +595,67 @@
     exWrap.appendChild(b);
   });
 
-  /* ---- Library ---- */
-  var libRendered=false, activeCat='All', libQuery='';
-  var CATS = ['All'].concat(RULINGS.map(function(r){return r.category;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
-  function renderCats(){
-    var c=$('#cats'); c.innerHTML='';
-    CATS.forEach(function(cat){
-      var b=document.createElement('button'); b.className='catbtn'; b.type='button'; b.textContent=cat;
-      b.setAttribute('aria-pressed', String(cat===activeCat));
-      b.addEventListener('click', function(){ activeCat=cat; renderCats(); renderLibList(); });
-      c.appendChild(b);
+  /* ---- Library: exhaustive rule-by-rule accordion ---- */
+  var libRendered=false, libQuery='';
+  var RULES = (DATA.rules||[]).slice().sort(function(a,b){ return a.no-b.no; });
+  function rulingsForRule(no){
+    return RULINGS.filter(function(r){ return parseInt(String(r.rule),10)===no; });
+  }
+  function rulePanelHtml(rule, rulings){
+    var html='<div class="rule-panel">';
+    if(rule.summary) html+='<p class="rule-summary">'+esc(rule.summary)+'</p>';
+    if(rule.points && rule.points.length){
+      html+='<ul class="rule-points">';
+      rule.points.forEach(function(p){ html+='<li>'+esc(p)+'</li>'; });
+      html+='</ul>';
+    }
+    if(rulings.length){
+      html+='<div class="rulings-head">Rulings under this rule ('+rulings.length+')</div>';
+      rulings.forEach(function(r){ html+=rulingCard(r,false); });
+    } else {
+      html+='<div class="rule-none">No penalisable infringement is defined under this rule — see the provisions above.</div>';
+    }
+    html+='</div>';
+    return html;
+  }
+  function ruleMatches(rule, rulings, qn){
+    if(!qn) return true;
+    var hay=(rule.no+' rule '+rule.no+' '+rule.name+' '+(rule.summary||'')+' '+(rule.points||[]).join(' ')).toLowerCase();
+    if(hay.indexOf(qn)>-1) return true;
+    return rulings.some(function(r){
+      var h=(r.title+' '+r.ruleName+' '+(r.heading||'')+' '+r.rule+' '+r.terminology+' '+(r.keywords||[]).join(' ')).toLowerCase();
+      return h.indexOf(qn)>-1;
     });
   }
   function renderLibList(){
     var list=$('#libList'); var qn=libQuery.toLowerCase().trim();
-    var items = RULINGS.filter(function(r){
-      if(activeCat!=='All' && r.category!==activeCat) return false;
-      if(!qn) return true;
-      var hay=(r.title+' '+r.category+' '+r.rule+' '+r.terminology+' '+(r.keywords||[]).join(' ')).toLowerCase();
-      return hay.indexOf(qn)>-1;
+    var shown=0, html='';
+    RULES.forEach(function(rule){
+      var rulings=rulingsForRule(rule.no);
+      if(!ruleMatches(rule, rulings, qn)) return;
+      shown++;
+      var openAttr = qn ? ' open' : '';
+      html+='<details class="rule-acc"'+openAttr+'>'
+        +'<summary><span class="rule-no">'+rule.no+'</span>'
+        +'<span class="rule-name">'+esc(rule.name)+'</span>'
+        +'<span class="rule-meta">'+(rulings.length?rulings.length+(rulings.length===1?' ruling':' rulings'):'reference')+'</span>'
+        +'<svg class="rule-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+        +'</summary>'+rulePanelHtml(rule, rulings)+'</details>';
     });
-    $('#libCount').textContent = items.length+' ruling'+(items.length===1?'':'s')+(activeCat==='All'?'':' in '+activeCat)+(qn?' matching “'+libQuery.trim()+'”':'');
-    list.innerHTML = items.length ? items.map(function(r){ return rulingCard(r,false); }).join('') :
-      '<div class="empty"><p>No rulings match. Try a different search or category.</p></div>';
+    $('#libCount').textContent = qn
+      ? shown+' rule'+(shown===1?'':'s')+' matching “'+libQuery.trim()+'”'
+      : RULES.length+' rules · '+RULINGS.length+' detailed rulings';
+    list.innerHTML = shown ? html
+      : '<div class="empty"><p>No rules or rulings match. Try a different search.</p></div>';
   }
-  function renderLibrary(){ renderCats(); renderLibList(); }
+  function renderLibrary(){ renderLibList(); }
   $('#libSearch').addEventListener('input', function(e){ libQuery=e.target.value; renderLibList(); });
+  var expandAllOn=false;
+  $('#expandAll').addEventListener('click', function(){
+    expandAllOn=!expandAllOn;
+    $$('#libList .rule-acc').forEach(function(d){ d.open=expandAllOn; });
+    this.textContent = expandAllOn ? 'Collapse all' : 'Expand all';
+  });
 
   /* ---- Signals ---- */
   var sg=$('#sigGrid');
