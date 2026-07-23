@@ -3,7 +3,8 @@
 A scenario-driven umpiring aid. Describe a match situation in plain language and
 get the correct **ruling, sanction, umpire terminology, hand signal and
 step-by-step procedure** — grounded verbatim in the **World Netball Rules of
-Netball, 2024 Edition**.
+Netball, 2024 Edition**, with answers laid out in the same structure umpires are
+marked on in the **Europe Netball 'A' & 'B' written assessment**.
 
 This is the first working prototype: a single, dependency-free `index.html` you
 can open in any browser or host as a static site (e.g. **Azure Static Web
@@ -21,7 +22,7 @@ Apps**). The eventual product is an iPhone and Android app; see
 | Tool | What it does |
 |------|--------------|
 | **Scenario Assistant** | Type a situation → matched ruling with sanction (colour-coded by severity), exact terminology, where it's taken, hand signal, and procedure. Runs entirely on-device. |
-| **Rulings Library** | Browse and search all 39 infringements by category. |
+| **Rulings Library** | Browse and search all 41 infringements by category. |
 | **Hand Signals** | The 23 official umpire hand signals (Rules of Netball, pp. 70–77). |
 
 ## Project structure

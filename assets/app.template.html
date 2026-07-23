@@ -162,6 +162,17 @@
   }
   .term .k { color:var(--ink-faint); font-weight:600; margin-right:6px; text-transform:uppercase; font-size:10.5px; letter-spacing:.06em;}
 
+  /* Assessment-format answer block */
+  .answer { border:1px solid var(--line); border-radius:var(--radius-sm); overflow:hidden; margin:4px 0 6px; }
+  .ans-row { display:grid; grid-template-columns:150px 1fr; gap:14px; padding:11px 14px; border-top:1px solid var(--line-soft); align-items:baseline; }
+  .ans-row:first-child { border-top:0; background:var(--surface-2); }
+  .ans-lbl { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); }
+  .ans-val { font-size:14px; color:var(--ink); line-height:1.5; display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+  .ans-val > b { font-weight:750; }
+  .ans-sep { color:var(--ink-faint); font-weight:400; font-style:italic; }
+  .ans-val .muted, .muted { color:var(--ink-faint); font-size:12.5px; font-weight:400; }
+  @media (max-width:560px){ .ans-row { grid-template-columns:1fr; gap:4px; } }
+
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:4px; }
   @media (max-width:640px){ .grid2 { grid-template-columns:1fr; } }
   .field { background:var(--surface-2); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:11px 13px; }
@@ -327,6 +338,7 @@
         <li><b>Hand Signals</b> — the 23 official umpire signals.</li>
       </ul>
       <p>The assistant currently matches your description against a curated, rules-grounded knowledge base entirely on your device — nothing is sent anywhere. This keeps every answer traceable to a specific rule, which is exactly what an umpiring aid needs.</p>
+      <p>Answers are laid out in the same structure umpires are marked on in the <b>Europe Netball ‘A’ &amp; ‘B’ written assessment</b>: the <b>infringement</b> (rule name and heading), the <b>sanction/action</b>, <b>who it is awarded to</b>, and <b>where it is taken</b> — followed by the procedure and hand signal.</p>
 
       <h2>Where it is going</h2>
       <div class="roadmap">
@@ -381,17 +393,20 @@
     html += '<div class="card-top"><span class="rule-tag">Rule '+esc(r.rule)+'</span><span class="cat-tag">· '+esc(r.category)+'</span></div>';
     html += '<div class="card-body">';
     html += '<h3>'+esc(r.title)+'</h3>';
-    html += '<div class="sanction-row">';
-    html += '<span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>';
-    if(r.terminology){ html += '<span class="term"><span class="k">Call</span>'+esc(r.terminology)+'</span>'; }
-    html += '</div>';
 
-    html += '<div class="grid2">';
-    html += '<div class="field"><div class="lbl">Where it is taken</div><div class="val">'+esc(r.position)+'</div></div>';
+    // Assessment-format answer (Infringement / Sanction / Awarded to / Where taken),
+    // matching how umpires are marked in the Europe Netball A & B written assessment.
+    var infr = r.heading ? (esc(r.ruleName)+' <span class="ans-sep">and</span> '+esc(r.heading)) : esc(r.ruleName);
+    html += '<div class="answer">';
+    html += '<div class="ans-row"><span class="ans-lbl">Infringement</span><span class="ans-val"><b>'+infr+'</b></span></div>';
+    html += '<div class="ans-row"><span class="ans-lbl">Sanction / action</span><span class="ans-val"><span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>'+(r.sanction==='penalty'?'<span class="muted">against the infringer, who stands out of play</span>':'')+'</span></div>';
+    if(r.awardedTo){ html += '<div class="ans-row"><span class="ans-lbl">Awarded to</span><span class="ans-val">'+esc(r.awardedTo)+'</span></div>'; }
+    html += '<div class="ans-row"><span class="ans-lbl">Where taken</span><span class="ans-val">'+esc(r.position)+'</span></div>';
+    if(r.terminology){ html += '<div class="ans-row"><span class="ans-lbl">Umpire call</span><span class="ans-val"><span class="term">'+esc(r.terminology)+'</span></span></div>'; }
     if(sig){
-      html += '<div class="field"><div class="lbl">Hand signal</div><div class="val"><span class="signal-badge">'+sig.n+'</span> '+esc(sig.name)+' — '+esc(sig.how)+'</div></div>';
+      html += '<div class="ans-row"><span class="ans-lbl">Hand signal</span><span class="ans-val"><span class="signal-badge">'+sig.n+'</span> '+esc(sig.name)+' <span class="muted">'+esc(sig.how)+'</span></span></div>';
     } else {
-      html += '<div class="field"><div class="lbl">Hand signal</div><div class="val">No specific hand signal — call the terminology clearly.</div></div>';
+      html += '<div class="ans-row"><span class="ans-lbl">Hand signal</span><span class="ans-val"><span class="muted">No specific hand signal — call the terminology clearly.</span></span></div>';
     }
     html += '</div>';
 
@@ -509,10 +524,11 @@
     "GD pushed the shooter as she released the shot",
     "A long pass flew over a whole third without anyone touching it",
     "WA stepped into the centre third before the whistle",
-    "Player caught the ball and landed with one foot over the sideline",
-    "Two opposing players grabbed the ball at exactly the same time",
-    "Shooter held the ball for four seconds before shooting",
-    "Defender knocked an airborne player and she landed on her head"
+    "GD marked closely with arms outstretched to stop GS getting free",
+    "GK moved into the landing space of an airborne shooter",
+    "The coach shouted that the umpire doesn't know what they're doing",
+    "Blue C kicked the ball as it bounced on the court",
+    "Two opposing players grabbed the ball at exactly the same time"
   ];
   var exWrap = $('#examples');
   EXAMPLES.forEach(function(x){
