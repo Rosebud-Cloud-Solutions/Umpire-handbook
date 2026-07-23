@@ -45,6 +45,10 @@ const cases = [
   ["GD held an arm out to stop the attacker moving to receive the pass", "Obstruction", "Player not in possession"],
   ["GK moved into the landing space of the airborne shooter who fell", "Causing contact", "player in the air"],
   ["Red GD hit the ball out of the GS hands just before the shot", "Contact", "Interference"],
+  // reported bug: GK throws from the defending third, caught in the attacking third (skips centre third)
+  ["Red GK standing with the ball in the defending third throws it and it is caught by the red WA in the attacking third", "Over a third", "Over a third"],
+  ["the ball was thrown over the centre third and caught in the goal third without being touched in the middle", "Over a third", "Over a third"],
+  ["GD standing outside the court tried to defend the GA on court", "Defending from out of court", "Defending from out of court"],
 ];
 
 let pass = 0;
