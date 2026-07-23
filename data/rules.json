@@ -452,7 +452,21 @@
         "not far enough",
         "intercept too close",
         "reaching over ball",
-        "defended the shot"
+        "defended the shot",
+        "mark",
+        "marks",
+        "marking",
+        "marking closely",
+        "marking her player",
+        "marking the player",
+        "within 3ft",
+        "within 3 ft",
+        "3ft",
+        "3 ft",
+        "stayed within 3 feet",
+        "kept marking",
+        "marking within",
+        "too close to the player with the ball"
       ],
       "heading": "Player in possession of the ball",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -500,7 +514,11 @@
         "prevent from moving",
         "preventing the attacker",
         "stopping the attacker moving",
-        "marking with arms out"
+        "marking with arms out",
+        "marking",
+        "marking closely",
+        "marking her player",
+        "kept marking"
       ],
       "heading": "Player not in possession of the ball",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -2261,5 +2279,44 @@
         }
       ]
     }
-  ]
+  ],
+  "gameManagement": {
+    "rule": "18",
+    "name": "Game management",
+    "heading": "Game management actions",
+    "intro": "For any repeated or ongoing infringing, the umpire works through the game-management actions in order, unless an act is serious enough to jump straight to a higher level. Player safety is the paramount consideration.",
+    "ladder": [
+      {
+        "key": "advice",
+        "label": "Proactive advice",
+        "ref": "18.13",
+        "desc": "Specific feedback to the player to change their behaviour, without holding time."
+      },
+      {
+        "key": "advance",
+        "label": "Advance and/or escalate the sanction",
+        "ref": "18.17",
+        "desc": "Advance the sanction up to half a third (into the goal circle if the infringement was in the goal third) and/or escalate a free pass to a penalty pass."
+      },
+      {
+        "key": "warning",
+        "label": "Warning",
+        "ref": "18.23",
+        "desc": "Formally warn the player that suspension will follow if they keep infringing the foul-play rules. Only one warning per player in a match."
+      },
+      {
+        "key": "suspension",
+        "label": "Suspension",
+        "ref": "18.27",
+        "desc": "The player takes no part in play for two minutes' playing time. Only one suspension per player."
+      },
+      {
+        "key": "ordering-off",
+        "label": "Ordering off",
+        "ref": "18.36",
+        "desc": "The player takes no further part in the match; the team may replace them after four minutes' playing time."
+      }
+    ],
+    "notes": "Repeated infringing after being spoken to is itself unfair play [19.4], [18.16]. Advancing/escalating is not usually used for infringements that endanger safety — those go straight to suspension or ordering off [18.20]."
+  }
 }
