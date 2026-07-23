@@ -230,7 +230,9 @@
   .rule-acc[open] > summary .rule-chev { transform:rotate(180deg); }
   .rule-acc[open] > summary { border-bottom:1px solid var(--line-soft); }
   .rule-panel { padding:14px 16px 6px; }
-  .rule-summary { font-size:14px; color:var(--ink-soft); margin:0 0 12px; line-height:1.55; }
+  .rule-summary { font-size:14px; color:var(--ink-soft); margin:0 0 14px; line-height:1.55; }
+  .rule-section { margin:0 0 14px; }
+  .rsec-head { font-size:13.5px; font-weight:750; color:var(--accent-strong); letter-spacing:-.01em; margin:0 0 7px; padding-bottom:5px; border-bottom:1px solid var(--line-soft); }
   .rule-points { margin:0 0 8px; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
   .rule-points li { position:relative; padding-left:20px; font-size:13.5px; color:var(--ink); line-height:1.5; }
   .rule-points li::before { content:""; position:absolute; left:3px; top:8px; width:6px; height:6px; border-radius:2px; background:var(--accent); transform:rotate(45deg); }
@@ -604,13 +606,13 @@
   function rulePanelHtml(rule, rulings){
     var html='<div class="rule-panel">';
     if(rule.summary) html+='<p class="rule-summary">'+esc(rule.summary)+'</p>';
-    if(rule.points && rule.points.length){
-      html+='<ul class="rule-points">';
-      rule.points.forEach(function(p){ html+='<li>'+esc(p)+'</li>'; });
-      html+='</ul>';
-    }
+    (rule.sections||[]).forEach(function(sec){
+      html+='<div class="rule-section"><div class="rsec-head">'+esc(sec.heading)+'</div><ul class="rule-points">';
+      (sec.points||[]).forEach(function(pt){ html+='<li>'+esc(pt)+'</li>'; });
+      html+='</ul></div>';
+    });
     if(rulings.length){
-      html+='<div class="rulings-head">Rulings under this rule ('+rulings.length+')</div>';
+      html+='<div class="rulings-head">Detailed rulings under this rule ('+rulings.length+')</div>';
       rulings.forEach(function(r){ html+=rulingCard(r,false); });
     } else {
       html+='<div class="rule-none">No penalisable infringement is defined under this rule — see the provisions above.</div>';
@@ -618,9 +620,12 @@
     html+='</div>';
     return html;
   }
+  function sectionText(rule){
+    return (rule.sections||[]).map(function(s){ return s.heading+' '+(s.points||[]).join(' '); }).join(' ');
+  }
   function ruleMatches(rule, rulings, qn){
     if(!qn) return true;
-    var hay=(rule.no+' rule '+rule.no+' '+rule.name+' '+(rule.summary||'')+' '+(rule.points||[]).join(' ')).toLowerCase();
+    var hay=(rule.no+' rule '+rule.no+' '+rule.name+' '+(rule.summary||'')+' '+sectionText(rule)).toLowerCase();
     if(hay.indexOf(qn)>-1) return true;
     return rulings.some(function(r){
       var h=(r.title+' '+r.ruleName+' '+(r.heading||'')+' '+r.rule+' '+r.terminology+' '+(r.keywords||[]).join(' ')).toLowerCase();
