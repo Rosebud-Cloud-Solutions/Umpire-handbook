@@ -466,10 +466,32 @@
     if(r.terminology) tokens(r.terminology).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.5; });
     return { r:r, kw:kw };
   });
+  // Domain reasoning that plain keyword matching misses. These encode rule
+  // logic about court geography, not just surface words.
+  function domainBoost(id, qn){
+    if(id !== 'over-a-third') return 0;
+    // A ball can only travel between the two OPPOSITE thirds (defending <-> attacking)
+    // by crossing the centre third; if it is not touched there, it is "over a third".
+    var hasDef = /(defend\w*|defensive)\s+(goal\s+)?third|defending third/.test(qn);
+    var hasAtt = /(attack\w*)\s+(goal\s+)?third|attacking third/.test(qn);
+    var overMid = /(over|across|skip\w*|miss\w*|cross\w*)\s+(the\s+)?(centre|center|middle)\s+third/.test(qn);
+    var twoLines = /(two|both)\s+transverse\s+lines|crossed\s+two/.test(qn);
+    var pass = /(throw|threw|thrown|pass\w*|caught|catch\w*|sent|fed)/.test(qn);
+    var touchedMid = /(touch\w*|tipp?\w*|deflect\w*|bounce\w*|caught|catch\w*)[^.]{0,30}(centre|center|middle)\s+third/.test(qn);
+    if(((hasDef && hasAtt) || overMid || twoLines) && pass && !touchedMid) return 8;
+    return 0;
+  }
+  // Some rulings are impossible without a specific context; suppress them otherwise.
+  function suppressed(id, outCtx){
+    // "Defending from out of court" and "Leaving the court" require the player to
+    // actually be out of / leaving the court. Without that context, never suggest them.
+    return (id === 'defending-out-of-court' || id === 'leaving-court') && !outCtx;
+  }
   function score(query){
     var qn = ' '+norm(query)+' ';
     var qtok = tokens(query);
     var qset = {}; qtok.forEach(function(t){ qset[t]=1; });
+    var outCtx = /(out of court|outside the court|off the court|off court|court surround|behind the (goal ?line|post)|over the (side ?line|goal ?line))/.test(qn);
     var out = INDEX.map(function(entry){
       var s=0, hits={};
       // phrase matches (multi-word keywords) against raw normalised query
@@ -484,6 +506,9 @@
       // small boost: proportion of distinct query tokens that hit
       var distinct = Object.keys(hits).length;
       s += distinct*0.6;
+      // domain reasoning + context guards
+      s += domainBoost(entry.r.id, qn);
+      if(suppressed(entry.r.id, outCtx)) s = 0;
       return { r:entry.r, s:s, hits:distinct };
     }).filter(function(x){ return x.s>0; });
     out.sort(function(a,b){ return b.s-a.s; });
