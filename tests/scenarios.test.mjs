@@ -80,9 +80,30 @@ for (const [q, expTitle, expAns] of cases) {
   console.log((ok ? 'PASS' : 'FAIL') + ' | ' + q);
   if (!ok) console.log('       got title="' + title + '" | heading-check "' + expAns + '"=' + okA);
 }
+// Interactive judgement: dangerous-play severity resolves to the right game-management action.
+async function decisionCheck() {
+  const q = "The GD takes up the landing space of the Red GA, this action is intentional and causes the GA to fall, hitting her head hard on the ground.";
+  await page.fill('#q', q);
+  await page.click('#goBtn');
+  await page.waitForTimeout(150);
+  const hasPanel = (await page.$('#results .decide')) !== null;
+  await page.$$eval('#results .dec-opt', els => { const t = els.find(e => /Intentional/.test(e.textContent)); if (t) t.click(); });
+  await page.waitForTimeout(100);
+  const orderOff = await page.$eval('#results .dec-result:not([hidden]) .dec-action', el => el.textContent).catch(() => '');
+  // switch to the "reckless / careless" option -> suspend
+  await page.$$eval('#results .dec-opt', els => { const t = els.find(e => /reckless \/ careless/i.test(e.textContent)); if (t) t.click(); });
+  await page.waitForTimeout(100);
+  const suspend = await page.$eval('#results .dec-result:not([hidden]) .dec-action', el => el.textContent).catch(() => '');
+  const ok = hasPanel && /order the player off/i.test(orderOff) && /suspend the player/i.test(suspend);
+  console.log((ok ? 'PASS' : 'FAIL') + ' | judgement branch: intentional -> order off; reckless -> suspend');
+  if (!ok) console.log('       panel=' + hasPanel + ' orderOff="' + orderOff + '" suspend="' + suspend + '"');
+  return ok;
+}
+
 const gmOk = await gmCheck();
-const total = cases.length + 1;
-const passed = pass + (gmOk ? 1 : 0);
+const decOk = await decisionCheck();
+const total = cases.length + 2;
+const passed = pass + (gmOk ? 1 : 0) + (decOk ? 1 : 0);
 console.log('\n' + passed + '/' + total + ' passed | console errors: ' + (errors.length ? errors.join('; ') : 'none'));
 await browser.close();
 process.exit(passed === total && errors.length === 0 ? 0 : 1);
