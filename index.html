@@ -132,6 +132,9 @@
   .result-head h2 { font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin:0; font-weight:700; }
   .conf { font-size:12px; color:var(--ink-faint); }
   .conf b { color:var(--ink-soft); }
+  .asked { background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:11px 15px; margin:0 0 16px; }
+  .asked-lbl { display:block; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:4px; }
+  .asked p { margin:0; font-size:15.5px; color:var(--ink); font-style:italic; line-height:1.45; }
 
   /* ---------- Ruling card ---------- */
   .card {
@@ -496,30 +499,50 @@
     var ranked = score(query);
     if(!ranked.length){
       box.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><p>No confident match yet. Try naming the action — e.g. <em>“stepped”, “pushed the shooter”, “defended too close”, “ball went out”</em> — or browse the <a href="#" data-jump="library">Rulings Library</a>.</p></div>';
-      wireJump(box); return;
+      wireJump(box); return false;
     }
     var top = ranked[0];
-    var alts = ranked.slice(1,4).filter(function(x){ return x.s >= top.s*0.35; });
     var strong = top.s >= 7 || (ranked[1] ? top.s >= ranked[1].s*1.4 : true);
     var confTxt = strong ? 'Best match' : 'Closest match — check it fits';
+    // Only surface genuinely close alternatives, so a dominant answer stays uncluttered.
+    var thresh = (strong ? 0.6 : 0.4) * top.s;
+    var alts = ranked.slice(1,4).filter(function(x){ return x.s >= thresh && x.s >= 4; }).slice(0,2);
     var html = '';
-    html += '<div class="result-head"><h2>'+confTxt+'</h2><span class="conf">for “<b>'+esc(query.length>70?query.slice(0,70)+'…':query)+'</b>”</span></div>';
+    html += '<div class="result-head"><h2>'+confTxt+'</h2></div>';
+    html += '<div class="asked"><span class="asked-lbl">Your scenario</span><p>'+esc(query)+'</p></div>';
     html += rulingCard(top.r, false);
     if(alts.length){
       html += '<div class="result-head" style="margin-top:22px"><h2>Other possibilities</h2></div>';
       alts.forEach(function(a){ html += rulingCard(a.r, true); });
     }
     box.innerHTML = html;
+    return true;
   }
   function wireJump(scope){
     $$('[data-jump]', scope).forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); showView(a.dataset.jump); }); });
   }
 
-  var q = $('#q'), goBtn = $('#goBtn');
+  var q = $('#q'), goBtn = $('#goBtn'), exWrap = $('#examples');
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function autosize(){ q.style.height='auto'; q.style.height=Math.min(q.scrollHeight,200)+'px'; }
   q.addEventListener('input', autosize);
-  function run(){ var v=q.value.trim(); if(v){ renderResults(v); } }
-  goBtn.addEventListener('click', run);
+  function scrollToResults(){
+    var r = $('#results'); if(!r) return;
+    var y = r.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({ top:y, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+  // Run a scenario: show the answer, clear the box, hide the example chips,
+  // and bring the results into view. (On no match, keep the text so it can be edited.)
+  function run(text){
+    var v = (typeof text === 'string' ? text : q.value).trim();
+    if(!v) return;
+    var matched = renderResults(v);
+    exWrap.style.display = 'none';
+    if(matched){ q.value=''; autosize(); }
+    else { q.value = v; autosize(); }
+    scrollToResults();
+  }
+  goBtn.addEventListener('click', function(){ run(); });
   q.addEventListener('keydown', function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); run(); } });
 
   var EXAMPLES = [
@@ -534,10 +557,9 @@
     "Blue C kicked the ball as it bounced on the court",
     "Two opposing players grabbed the ball at exactly the same time"
   ];
-  var exWrap = $('#examples');
   EXAMPLES.forEach(function(x){
     var b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=x;
-    b.addEventListener('click', function(){ q.value=x; autosize(); renderResults(x); q.focus(); });
+    b.addEventListener('click', function(){ run(x); });
     exWrap.appendChild(b);
   });
 
