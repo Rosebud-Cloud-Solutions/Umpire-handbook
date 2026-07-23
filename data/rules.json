@@ -1210,7 +1210,8 @@
         "knocked to the ground"
       ],
       "heading": "Dangerous play",
-      "awardedTo": "The non-infringing team — any player allowed in the area."
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "decisionId": "dangerous-play-severity"
     },
     {
       "id": "unsporting-behaviour",
@@ -1644,7 +1645,8 @@
         "did not yield",
         "landing zone",
         "under the player in the air"
-      ]
+      ],
+      "decisionId": "dangerous-play-severity"
     },
     {
       "id": "preventing-re-entry",
@@ -2318,5 +2320,53 @@
       }
     ],
     "notes": "Repeated infringing after being spoken to is itself unfair play [19.4], [18.16]. Advancing/escalating is not usually used for infringements that endanger safety — those go straight to suspension or ordering off [18.20]."
+  },
+  "decisions": {
+    "dangerous-play-severity": {
+      "prompt": "This affects player safety, so the game-management action depends on your judgement. How do you grade the action?",
+      "safety": "Hold time immediately for the injury; the player leaves the court within 30 seconds for assessment [10.13]. Advantage must never be applied to dangerous play or any head/neck contact [7.4].",
+      "factors": [
+        "Was the action intentional, reckless or avoidable? [19.12]",
+        "Low or high impact on player safety?",
+        "Low or high speed — on the ground or in the air?",
+        "Low or high force?",
+        "Was the player stationary or moving?"
+      ],
+      "options": [
+        {
+          "key": "order-off",
+          "label": "Intentional or highly reckless",
+          "result": {
+            "action": "Order the player off",
+            "refs": "19.11, 18.37",
+            "signal": 23,
+            "sanction": "penalty",
+            "detail": "A player must always be ordered off for intentional or highly reckless acts of dangerous play. The player takes no further part in the match; the team may replace them after four minutes' playing time. Award a penalty pass to the non-infringing team where the infringer was standing (unless that disadvantages them, then where the airborne player was)."
+          }
+        },
+        {
+          "key": "suspend",
+          "label": "Dangerous but not intentional (reckless / careless)",
+          "result": {
+            "action": "Suspend the player",
+            "refs": "19.11, 18.29",
+            "signal": 22,
+            "sanction": "penalty",
+            "detail": "Dangerous play must be at least a suspension — two minutes' playing time off court, with the position left vacant (unless the player is Centre). Award a penalty pass to the non-infringing team where the infringer was standing (unless that disadvantages them, then where the airborne player was)."
+          }
+        },
+        {
+          "key": "not-dangerous",
+          "label": "Not dangerous play (safety not endangered)",
+          "result": {
+            "action": "Penalty pass only — no suspension",
+            "refs": "17.4–17.6",
+            "signal": 20,
+            "sanction": "penalty",
+            "detail": "If safety was not endangered, penalise 'Causing contact' with a penalty pass where the infringer was standing; apply normal game management (advice, advance/escalate, warning) only if the behaviour repeats. Note: moving into an opponent's landing space still causes contact, so a penalty pass applies."
+          }
+        }
+      ]
+    }
   }
 }
