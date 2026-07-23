@@ -2,44 +2,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="A scenario-driven umpiring aid grounded in the World Netball Rules of Netball, 2024 Edition. Describe a match situation and get the correct ruling, sanction, terminology and hand signal." />
 <style>
+  /* Rosebud Netball brand: rosebud purple accent on an RCS navy/indigo base. */
   :root {
-    --paper:#F4F6F5; --surface:#FFFFFF; --surface-2:#EDF1EF; --surface-3:#E3EAE7;
-    --ink:#15242B; --ink-soft:#4A5B62; --ink-faint:#7A8B90;
-    --line:#DBE3E0; --line-soft:#E7EDEA;
-    --accent:#0E7C6B; --accent-strong:#0A5D50; --accent-wash:#E2F0EC;
-    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#6B54C6; --danger:#C6413A;
-    --free-wash:#E5F4EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#ECE8F8; --danger-wash:#F8E6E4;
-    --shadow:0 1px 2px rgba(21,36,43,.06), 0 8px 24px rgba(21,36,43,.06);
+    --paper:#F6F5FA; --surface:#FFFFFF; --surface-2:#F0EDF7; --surface-3:#E5E0F1;
+    --ink:#211B3A; --ink-soft:#544B6E; --ink-faint:#8B84A0;
+    --line:#E3DCEF; --line-soft:#EDE9F6;
+    --accent:#8E2DBE; --accent-strong:#6C1E96; --accent-wash:#F3E7FB;
+    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#3E4C8A; --danger:#C6413A;
+    --free-wash:#E6F5EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#E7E9F6; --danger-wash:#F8E6E4;
+    --shadow:0 1px 2px rgba(33,27,58,.07), 0 8px 24px rgba(33,27,58,.07);
     --radius:14px; --radius-sm:9px;
     --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code","Roboto Mono",Consolas,monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper:#0E1519; --surface:#16222A; --surface-2:#1C2A32; --surface-3:#243640;
-      --ink:#E9EFEC; --ink-soft:#A2B4AF; --ink-faint:#748A85;
-      --line:#26363E; --line-soft:#202F37;
-      --accent:#26A891; --accent-strong:#3FBEA7; --accent-wash:#123029;
-      --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#957EE0; --danger:#E0655C;
-      --free-wash:#12241A; --penalty-wash:#2A2015; --throwin-wash:#15222F; --possession-wash:#201B31; --danger-wash:#2A1817;
-      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+      --paper:#12102A; --surface:#1B1740; --surface-2:#241E4E; --surface-3:#2E2760;
+      --ink:#ECE9F6; --ink-soft:#B4ACD0; --ink-faint:#8880A8;
+      --line:#332B5C; --line-soft:#2A2450;
+      --accent:#B45AE6; --accent-strong:#C888F0; --accent-wash:#2A1F47;
+      --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#7C87D6; --danger:#E0655C;
+      --free-wash:#152A1D; --penalty-wash:#2C2113; --throwin-wash:#182338; --possession-wash:#20213F; --danger-wash:#2C1917;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.4);
     }
   }
   :root[data-theme="light"]{
-    --paper:#F4F6F5; --surface:#FFFFFF; --surface-2:#EDF1EF; --surface-3:#E3EAE7;
-    --ink:#15242B; --ink-soft:#4A5B62; --ink-faint:#7A8B90; --line:#DBE3E0; --line-soft:#E7EDEA;
-    --accent:#0E7C6B; --accent-strong:#0A5D50; --accent-wash:#E2F0EC;
-    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#6B54C6; --danger:#C6413A;
-    --free-wash:#E5F4EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#ECE8F8; --danger-wash:#F8E6E4;
-    --shadow:0 1px 2px rgba(21,36,43,.06), 0 8px 24px rgba(21,36,43,.06);
+    --paper:#F6F5FA; --surface:#FFFFFF; --surface-2:#F0EDF7; --surface-3:#E5E0F1;
+    --ink:#211B3A; --ink-soft:#544B6E; --ink-faint:#8B84A0; --line:#E3DCEF; --line-soft:#EDE9F6;
+    --accent:#8E2DBE; --accent-strong:#6C1E96; --accent-wash:#F3E7FB;
+    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#3E4C8A; --danger:#C6413A;
+    --free-wash:#E6F5EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#E7E9F6; --danger-wash:#F8E6E4;
+    --shadow:0 1px 2px rgba(33,27,58,.07), 0 8px 24px rgba(33,27,58,.07);
   }
   :root[data-theme="dark"]{
-    --paper:#0E1519; --surface:#16222A; --surface-2:#1C2A32; --surface-3:#243640;
-    --ink:#E9EFEC; --ink-soft:#A2B4AF; --ink-faint:#748A85; --line:#26363E; --line-soft:#202F37;
-    --accent:#26A891; --accent-strong:#3FBEA7; --accent-wash:#123029;
-    --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#957EE0; --danger:#E0655C;
-    --free-wash:#12241A; --penalty-wash:#2A2015; --throwin-wash:#15222F; --possession-wash:#201B31; --danger-wash:#2A1817;
-    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    --paper:#12102A; --surface:#1B1740; --surface-2:#241E4E; --surface-3:#2E2760;
+    --ink:#ECE9F6; --ink-soft:#B4ACD0; --ink-faint:#8880A8; --line:#332B5C; --line-soft:#2A2450;
+    --accent:#B45AE6; --accent-strong:#C888F0; --accent-wash:#2A1F47;
+    --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#7C87D6; --danger:#E0655C;
+    --free-wash:#152A1D; --penalty-wash:#2C2113; --throwin-wash:#182338; --possession-wash:#20213F; --danger-wash:#2C1917;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.4);
   }
 
   * { box-sizing:border-box; }
