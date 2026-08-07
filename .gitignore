@@ -6,6 +6,9 @@ scratch_*.png
 tests/*.png
 *.log
 
+# Deployment staging folder (built artifact, produced by CI and local deploys)
+dist/
+
 # OS / editor
 .DS_Store
 Thumbs.db

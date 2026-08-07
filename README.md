@@ -22,7 +22,7 @@ Apps**). The eventual product is an iPhone and Android app; see
 | Tool | What it does |
 |------|--------------|
 | **Scenario Assistant** | Type a situation → matched ruling with sanction (colour-coded by severity), exact terminology, where it's taken, hand signal, and procedure. Runs entirely on-device. |
-| **Rulings Library** | Browse and search all 41 infringements by category. |
+| **Rulings Library** | Browse and search all 54 rulings by category, including the explicit **No Action** cases the written assessment tests. |
 | **Hand Signals** | The 23 official umpire hand signals (Rules of Netball, pp. 70–77). |
 
 ## Project structure
