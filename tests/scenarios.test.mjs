@@ -1,8 +1,13 @@
 import { chromium } from 'playwright-core';
 import path from 'path';
+import fs from 'fs';
 
-const exe = '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
-const browser = await chromium.launch({ executablePath: exe });
+// Browser resolution, in order: an explicit PLAYWRIGHT_CHROMIUM_PATH, then the
+// local dev sandbox path, then whatever playwright-core has downloaded itself
+// (how CI gets a browser, via `npx playwright-core install chromium`).
+const exe = process.env.PLAYWRIGHT_CHROMIUM_PATH
+  || '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
+const browser = await chromium.launch(fs.existsSync(exe) ? { executablePath: exe } : {});
 const page = await browser.newPage();
 const errors = [];
 page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
@@ -56,7 +61,12 @@ const cases = [
   ["caught her own pass before anyone else touched it", "Repossession", "Playing the ball"],
   ["a player kicked the ball to a team mate", "Incorrect playing", "Prohibited actions"],
   ["GS took a free pass in the circle and shot for goal", "Shooting from a free pass", "Sanctions and actions"],
-  ["a player was injured and bleeding on court", "injury", "Stoppages"],
+  // Bleeding is governed by its own rule [10.12] with a distinct procedure
+  // (swap the ball, clean the court, check other players, the player stays off
+  // at the restart), so a query mentioning blood must reach that, not the
+  // general injury stoppage [10.9].
+  ["a player was injured and bleeding on court", "Blood", "Stoppages"],
+  ["a player twisted her ankle and asked me to hold time", "injury", "Stoppages"],
   // --- drawn directly from the Europe Netball A&B sample paper ---
   ["WA passed to GS very close inside the circle with no room to intercept", "Short pass", "Short pass"],
   ["WD reached into the opposing goal circle, tipped the ball and C caught it", "Offside", "Requirements"],
@@ -71,6 +81,22 @@ const cases = [
   // reported bug: leaving the field of play (for a drink) -> treated as a late player, not "ball out of court"
   ["A player leaves the court to have a drink, what should I do?", "Leaving the field of play", "Player outside the court"],
   ["a player went off court to get free space", "Leaving the court", "Player outside the court"],
+
+  // --- rulings added from sample papers 2, 3 and 4 ---
+  ["both defenders marked the GS so closely she could not move without touching them", "Inevitable", "Inevitable contact"],
+  ["WA landed on both feet at the same time then stepped and grounded the other foot again", "Two-foot landing", "Two-foot landing"],
+  ["the centre pass was caught landing with one foot in the goal third and one in the centre third", "astride", "Controlling the centre pass"],
+  ["the thrower stood on the line as she released the throw in", "foot touching the line", "Conditions for throw-in"],
+  ["GK put her hand in front of the shooter's eyes to distract her", "Intimidation", "Unfair play"],
+  ["the defender deliberately stood within three feet to slow down the pass into the circle", "Intentional infringing", "Unfair play"],
+  ["the player refused to hand over the ball for the penalty", "Delaying play", "Unfair play"],
+  ["WA has a nose bleed after the ball hit her in the face", "Blood", "Injury/illness of a player or blood"],
+
+  // --- No Action cases (the assessment requires 'No Action' as an answer) ---
+  ["GA tipped the ball three times in an uncontrolled way then caught it", "uncontrolled tips", "Gaining possession"],
+  ["WA tripped and leant on the ball which was on the ground inside the goal circle", "ball on the ground", "Requirements"],
+  ["GA jumped from her attacking goal third, caught the ball in the air and landed in the centre third", "jumping from one third", "Over a third"],
+  ["the team made no substitution and played on with the position left vacant", "vacant", "Injury/illness of a player or blood"],
 ];
 
 let pass = 0;

@@ -3,8 +3,8 @@
     "title": "Netball Umpiring Handbook — Ruling Knowledge Base",
     "source": "World Netball — Rules of Netball, 2024 Edition",
     "sourceNote": "Grounded verbatim in the 2024 edition. Where English wording diverges across translations, the English text is authoritative (Foreword). This knowledge base is a decision-support aid for umpires, not a substitute for the full rulebook.",
-    "version": "0.1.0",
-    "lastUpdated": "2026-07-23",
+    "version": "0.2.0",
+    "lastUpdated": "2026-08-07",
     "disclaimer": "Always apply umpire judgement. Player safety is the paramount consideration in every decision."
   },
   "signals": [
@@ -144,6 +144,11 @@
       "label": "Possession",
       "level": "Action",
       "note": "Awarded where the ball was when play stopped; any player allowed in the area may take it [6.15–6.17]."
+    },
+    "none": {
+      "label": "No Action",
+      "level": "No action — play on",
+      "note": "Nothing in the scenario infringes a rule. In the written assessment the answer is 'No Action' only; the sanction, awarded-to and where-taken boxes are left blank."
     }
   },
   "rulings": [
@@ -267,7 +272,11 @@
         "team mate too close",
         "quick succession",
         "short",
-        "not enough space"
+        "not enough space",
+        "not sufficient space",
+        "insufficient space",
+        "no room to intercept",
+        "too close to intercept"
       ],
       "heading": "Short pass",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -308,7 +317,11 @@
         "not touched in each third",
         "not touched in the middle third",
         "over a whole third untouched",
-        "full length untouched"
+        "full length untouched",
+        "rolled across the centre third",
+        "bounced in the goal third",
+        "over the wd head",
+        "missed the ball and it rolled"
       ],
       "heading": "Over a third",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -412,7 +425,12 @@
         "hands on the ball",
         "hit the ball from her hands",
         "knocked it out of her hands",
-        "hit the ball out of the hands"
+        "hit the ball out of the hands",
+        "knocked the ball out of the hands",
+        "pushed the ball into her hand",
+        "brought their hand down on the ball",
+        "hand held over the ball",
+        "defending hand over the ball"
       ],
       "heading": "Interference",
       "awardedTo": "The non-infringing team — any player allowed in the area.",
@@ -467,7 +485,12 @@
         "stayed within 3 feet",
         "kept marking",
         "marking within",
-        "too close to the player with the ball"
+        "too close to the player with the ball",
+        "over-balanced",
+        "overbalanced",
+        "stepped forward and landed within",
+        "lost balance and stepped in",
+        "arms up too close"
       ],
       "heading": "Player in possession of the ball",
       "awardedTo": "The non-infringing team — any player allowed in the area.",
@@ -520,7 +543,11 @@
         "marking",
         "marking closely",
         "marking her player",
-        "kept marking"
+        "kept marking",
+        "arms outstretched to prevent",
+        "prevented her moving",
+        "stopped her getting into position",
+        "blocked her movement"
       ],
       "heading": "Player not in possession of the ball",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -714,7 +741,11 @@
         "defended from off court",
         "outside the court defending",
         "arms in from out of court",
-        "reached in from off court"
+        "reached in from off court",
+        "followed her off court",
+        "raised their arms from out of court",
+        "defended from the surround",
+        "stood off court and defended"
       ],
       "heading": "Defending from out of court",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -751,7 +782,11 @@
         "ball didn't enter",
         "throw in fault",
         "over a third throw in",
-        "preventing re-entry"
+        "preventing re-entry",
+        "stood back from the line",
+        "too far from the line",
+        "20cm away from the line",
+        "away from the side line"
       ],
       "heading": "Conditions for throw-in",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -889,7 +924,10 @@
         "double bat",
         "tipped twice",
         "played it twice",
-        "juggled"
+        "juggled",
+        "batted the ball then caught it",
+        "bounced the ball and then caught it",
+        "bounced it and caught it"
       ],
       "heading": "Without having possession",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -924,7 +962,9 @@
         "rolled to team mate",
         "struck with fist",
         "hit with fist",
-        "kicked the ball"
+        "kicked the ball",
+        "rolled the ball",
+        "rolled it to a team mate"
       ],
       "heading": "Prohibited actions",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -1116,7 +1156,10 @@
         "shot with foot on line",
         "ground outside circle",
         "shooting foot out",
-        "stepped out shooting"
+        "stepped out shooting",
+        "back foot outside the circle",
+        "lifted their back foot and shot",
+        "front foot inside the circle"
       ],
       "heading": "Taking a shot",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -1412,7 +1455,12 @@
         "came on during play",
         "substitute entered early",
         "re-entered court",
-        "entered without break"
+        "entered without break",
+        "arrived late",
+        "stuck in traffic",
+        "ran straight onto court",
+        "seventh player arrived",
+        "entered the court mid-quarter"
       ],
       "heading": "Late players",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -1445,7 +1493,12 @@
         "team not ready",
         "delayed taking court",
         "five players present",
-        "match awarded"
+        "match awarded",
+        "did not return to court",
+        "still in the changing rooms",
+        "not back from half time",
+        "failed to take the court",
+        "deliberating substitutions"
       ],
       "heading": "Failure to take the court",
       "awardedTo": "The non-infringing team — any player allowed in the area."
@@ -1621,7 +1674,12 @@
         "player down",
         "cut",
         "open wound",
-        "30 seconds"
+        "30 seconds",
+        "held time",
+        "asked for injury time",
+        "injured my ankle",
+        "injured my knee",
+        "landed awkwardly"
       ],
       "heading": "Injury/illness of a player or blood",
       "awardedTo": null
@@ -1697,7 +1755,10 @@
         "yield",
         "did not yield",
         "landing zone",
-        "under the player in the air"
+        "under the player in the air",
+        "landed on a player who was already there",
+        "landed on the defender",
+        "player in the air landed on"
       ],
       "decisionId": "dangerous-play-severity"
     },
@@ -1730,6 +1791,456 @@
         "would not let back on",
         "blocked returning to court",
         "stopped coming back on"
+      ]
+    },
+    {
+      "id": "contact-inevitable",
+      "category": "Contact",
+      "rule": "17.8",
+      "ruleName": "Contact",
+      "heading": "Inevitable contact",
+      "title": "Inevitable contact — defenders positioned so contact cannot be avoided",
+      "sanction": "penalty",
+      "terminology": "Contact",
+      "position": "Where the infringing defender was standing when the contact became inevitable, unless this places the non-infringing team at a disadvantage, in which case it is taken where the contacted player was standing.",
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "signal": 20,
+      "keyIndicators": [
+        "One or more defenders mark an opponent so closely that any movement by that opponent must result in contact",
+        "The contact is caused by the defenders' positioning, not by the moving player",
+        "Where two defenders both cause it, the penalty may be taken where either was standing"
+      ],
+      "procedure": [
+        "Decide who caused the contact. Where a player is positioned so that an opponent cannot move without contacting them, the contact is caused by the player who took up that position [17.8].",
+        "Blow the whistle and call 'contact', naming the team and position of the infringer.",
+        "Award a penalty pass to the non-infringing team, taken by any player allowed in that area.",
+        "The infringer stands out of play beside the player taking the penalty until the ball has been released.",
+        "Where two defenders jointly caused the contact, the penalty may be taken where either of them was standing."
+      ],
+      "notes": "Distinguish from Contact — Interference [17.1], where the contact is an act by the infringer rather than a consequence of their position.",
+      "keywords": [
+        "inevitable contact",
+        "inevitable",
+        "unavoidable contact",
+        "unavoidable",
+        "marking so closely",
+        "sandwiched",
+        "boxed in",
+        "two defenders",
+        "both defenders",
+        "could not move without contact",
+        "cannot move without touching",
+        "contact caused by position",
+        "hemmed in"
+      ]
+    },
+    {
+      "id": "footwork-two-foot",
+      "category": "Footwork",
+      "rule": "13.2",
+      "ruleName": "Footwork",
+      "heading": "Two-foot landing",
+      "title": "Footwork — two-foot landing, regrounding the chosen foot",
+      "sanction": "free",
+      "terminology": "Footwork",
+      "position": "Free pass where the player was standing when they regrounded the foot.",
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "signal": 17,
+      "keyIndicators": [
+        "Player lands on both feet simultaneously, then steps and lifts one foot",
+        "The lifted foot is regrounded before the ball is released",
+        "After a two-foot landing either foot may be chosen as the landing foot — the other becomes the stepping foot"
+      ],
+      "procedure": [
+        "On a simultaneous two-foot landing the player may choose either foot as the landing foot [13.2].",
+        "Once they step and lift the other foot, the foot remaining is the landing foot and must not be regrounded before the ball is released.",
+        "Blow the whistle and call 'footwork'; use hand signal 17.",
+        "Award a free pass to the non-infringing team where the player was standing when the foot was regrounded."
+      ],
+      "notes": "Contrast the one-foot landing case [13.1] and dragging or sliding the landing foot [13.3]. Assessment answers name the heading 'Two-foot landing' specifically.",
+      "keywords": [
+        "two foot landing",
+        "two-foot landing",
+        "landed on two feet",
+        "landed simultaneously",
+        "both feet at the same time",
+        "landed on both feet",
+        "regrounded",
+        "re-grounded",
+        "grounded their foot again",
+        "put the foot back down"
+      ]
+    },
+    {
+      "id": "cp-landing-across-line",
+      "category": "Centre pass",
+      "rule": "8.16",
+      "ruleName": "Centre pass",
+      "heading": "Controlling the centre pass",
+      "title": "Centre pass — caught landing astride the transverse line",
+      "sanction": "free",
+      "terminology": "Offside (centre pass)",
+      "position": "Free pass where the player was in contact with the ground in the goal third, by the transverse line.",
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "signal": 10,
+      "keyIndicators": [
+        "Centre pass caught in the air by a player who lands with one foot in the centre third and one in the goal third",
+        "The centre pass must be caught or touched by a player standing wholly within the centre third",
+        "Landing astride the transverse line means the player is not wholly within the centre third"
+      ],
+      "procedure": [
+        "The centre pass must be caught or touched by a player who is wholly within the centre third [8.16].",
+        "A player who lands simultaneously with one foot either side of the transverse line has not met that requirement.",
+        "Blow the whistle and use hand signal 10 (incorrect position or incorrect use of court areas).",
+        "Award a free pass to the non-infringing team, taken in the goal third by the transverse line where the player was in contact with the ground."
+      ],
+      "notes": "Distinguish from a centre pass that crosses the third untouched [8.14] and from footwork at the centre pass [8.12].",
+      "keywords": [
+        "centre pass astride",
+        "astride the transverse line",
+        "straddling the line",
+        "landed either side of the line",
+        "centre pass landed across the line",
+        "caught the centre pass across the line",
+        "centre pass one foot in the goal third",
+        "centre pass caught astride",
+        "received the centre pass astride"
+      ]
+    },
+    {
+      "id": "throw-in-foot-on-line",
+      "category": "Sanctions and actions",
+      "rule": "6.13",
+      "ruleName": "Sanctions and actions",
+      "heading": "Conditions for throw-in",
+      "title": "Throw-in — foot touching the line when the ball is released",
+      "sanction": "throwin",
+      "terminology": "Out of court",
+      "position": "Throw-in to the opposing team, taken off court behind the line, where the infringer placed their foot on the line.",
+      "awardedTo": "The opposing team — any player allowed in the area.",
+      "signal": 3,
+      "keyIndicators": [
+        "Player taking the throw-in steps on, or over, the line as they release the ball",
+        "The player must remain outside the court until the ball is released"
+      ],
+      "procedure": [
+        "The player taking a throw-in must stand outside the court, with no part of either foot on or over the line, until the ball is released [6.13].",
+        "Blow the whistle and call 'out of court'.",
+        "Award the throw-in to the opposing team, taken off court behind the line at the point where the foot was placed on the line.",
+        "Ensure the new thrower is correctly positioned before restarting play."
+      ],
+      "notes": "Distinguish from taking the throw-in too far back from the line [6.11]; both are conditions for a throw-in but the assessment marks the specific breach.",
+      "keywords": [
+        "foot on the line",
+        "stood on the line",
+        "stepped on the line",
+        "foot over the line throw in",
+        "touching the line throw in",
+        "throw in foot on line",
+        "trod on the line"
+      ]
+    },
+    {
+      "id": "intimidation",
+      "category": "Foul play",
+      "rule": "19.6",
+      "ruleName": "Foul play",
+      "heading": "Unfair play",
+      "title": "Intimidation — distracting or intimidating an opponent",
+      "sanction": "penalty",
+      "terminology": "Intimidation",
+      "position": "Penalty pass advanced up to half a third towards the non-infringing team's goal, from where the infringer was standing. The infringer stands out of play at the new position.",
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "signal": 11,
+      "keyIndicators": [
+        "Deliberate act intended to distract, unsettle or intimidate an opponent",
+        "Hands or arms waved in front of an opponent's face or eyes",
+        "Verbal or physical intimidation of an opponent"
+      ],
+      "procedure": [
+        "Blow the whistle and call 'intimidation', naming the team and position of the infringer; use hand signal 11.",
+        "Award a penalty pass to the non-infringing team.",
+        "Advance the sanction up to half a third towards the non-infringing team's goal [19.6].",
+        "The infringer stands out of play beside the player taking the penalty, at the advanced position, until the ball is released.",
+        "Advantage cannot be applied to an incident of unfair play — the whistle must be blown."
+      ],
+      "notes": "Advancing is what distinguishes unfair play from an ordinary penalty. Where the advanced position would fall inside the goal circle, a player allowed in the circle takes it and the infringer stands out of play at the circle edge.",
+      "keywords": [
+        "intimidation",
+        "intimidate",
+        "intimidated",
+        "distract",
+        "distracted",
+        "hand in front of the eyes",
+        "waved hands in her face",
+        "in front of her face",
+        "put off the shooter",
+        "unsettle the shooter",
+        "shouting to distract"
+      ]
+    },
+    {
+      "id": "intentional-infringing",
+      "category": "Foul play",
+      "rule": "19.3",
+      "ruleName": "Foul play",
+      "heading": "Unfair play",
+      "title": "Intentional infringing — deliberately breaking a rule",
+      "sanction": "penalty",
+      "terminology": "Penalty pass, advanced (intentional infringing)",
+      "position": "Penalty pass advanced up to half a third towards the non-infringing team's goal, from where the infringement occurred. The infringer stands out of play at the new position.",
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "signal": null,
+      "keyIndicators": [
+        "The infringement is deliberate rather than mistimed or accidental",
+        "Commonly deliberate obstruction or contact to slow down or block a pass",
+        "Often occurs at a critical point in the match"
+      ],
+      "procedure": [
+        "Identify the underlying infringement (for example obstruction [16.1] or contact [17.1]) and signal it as normal.",
+        "Where the infringement is intentional, it is also unfair play [19.3] — both rules are named in the assessment answer.",
+        "Award a penalty pass to the non-infringing team and advance it up to half a third towards their goal.",
+        "The infringer stands out of play at the advanced position. Where the penalty is advanced into the goal circle, the infringer stands out of play at the circle edge nearest the new position if they are not allowed in the circle.",
+        "Advantage cannot be applied to any incident of unfair play [19.3]."
+      ],
+      "notes": "The answer names two rules: the infringement itself and Foul play — Unfair play. Escalation beyond advancing the penalty (warning, suspension, ordering off) is a game-management decision [18].",
+      "keywords": [
+        "intentional",
+        "intentionally",
+        "deliberate",
+        "deliberately",
+        "on purpose",
+        "cynical",
+        "professional foul",
+        "intentional obstruction",
+        "intentional contact",
+        "deliberately obstructed",
+        "deliberately stood within three feet",
+        "slow down the play"
+      ]
+    },
+    {
+      "id": "delaying-play",
+      "category": "Foul play",
+      "rule": "19.2",
+      "ruleName": "Foul play",
+      "heading": "Unfair play",
+      "title": "Delaying play — holding up the restart or a sanction",
+      "sanction": "penalty",
+      "terminology": "Delaying play",
+      "position": "Penalty pass advanced up to half a third towards the non-infringing team's goal, from where play was to restart.",
+      "awardedTo": "The non-infringing team — any player allowed in the area.",
+      "signal": null,
+      "keyIndicators": [
+        "A player withholds the ball from an opponent entitled to take a sanction",
+        "A player or team delays the restart of play after the umpire's instruction",
+        "Deliberate time-wasting"
+      ],
+      "procedure": [
+        "Blow the whistle and call 'delaying play' [19.2].",
+        "Award a penalty pass to the non-infringing team, taken by any player allowed in the area.",
+        "Advance the sanction up to half a third towards the non-infringing team's goal.",
+        "Where an individual player delayed play, that player stands out of play at the new position. Where the delay was by the team as a whole (for example failure to take the court), no player is required to stand out of play.",
+        "Consider whether game management [18] also applies if the behaviour is repeated."
+      ],
+      "notes": "The 'no player stands out of play' distinction for team offences is specifically marked in the written assessment.",
+      "keywords": [
+        "delaying play",
+        "delay play",
+        "delayed play",
+        "time wasting",
+        "timewasting",
+        "refused to give the ball",
+        "would not hand over the ball",
+        "kept the ball",
+        "held onto the ball",
+        "slow to restart",
+        "not returning to court",
+        "refused to hand over",
+        "refused to hand over the ball",
+        "hand over the ball for the penalty",
+        "would not give the ball",
+        "picked it up and refused"
+      ]
+    },
+    {
+      "id": "stoppage-blood",
+      "category": "Stoppages",
+      "rule": "10.12",
+      "ruleName": "Stoppages",
+      "heading": "Injury/illness of a player or blood",
+      "title": "Blood — a player is bleeding or has blood on them",
+      "sanction": null,
+      "terminology": "Hold time",
+      "position": "No sanction. Play restarts with the team that had possession, where the ball was when play was stopped.",
+      "awardedTo": "No sanction — possession returns to the team that had it when play stopped.",
+      "signal": 2,
+      "keyIndicators": [
+        "A player is actively bleeding, or has blood on their skin or clothing",
+        "Blood on the ball or on the court"
+      ],
+      "procedure": [
+        "Blow the whistle and hold time using hand signal 2 [10.12].",
+        "Advise the bleeding player to leave the court within 30 seconds for treatment, and to have any blood-stained clothing cleaned or replaced.",
+        "Timekeepers advise the umpires when 10 seconds of the stoppage remain.",
+        "Both teams may make substitutions and team changes within the time allowed.",
+        "If there is blood on the ball it must be swapped, and any blood on the court must be cleaned, before play restarts.",
+        "Check whether any other player has blood on them; they must also leave the court to clean or replace clothing, and may return before play restarts.",
+        "The player for whom play was stopped must remain off court when play restarts.",
+        "If no substitution is made for that player, play resumes with the position left vacant.",
+        "Restart play with the team that had possession, where the ball was when play was stopped, using the whistle and the relevant hand signal."
+      ],
+      "notes": "The bleeding player remaining off court at the restart is the point most often missed. Compare the injury/illness procedure [10.9], where the injured player also leaves the court but the surrounding conditions differ.",
+      "keywords": [
+        "blood",
+        "bleeding",
+        "bled",
+        "nose bleed",
+        "nosebleed",
+        "cut",
+        "blood on the ball",
+        "blood on the court",
+        "blood stained",
+        "bloodstained",
+        "bleeding from a cut",
+        "actively bleeding"
+      ]
+    },
+    {
+      "id": "na-uncontrolled-catch",
+      "category": "Playing the ball",
+      "rule": "11.1",
+      "ruleName": "Playing the ball",
+      "heading": "Gaining possession",
+      "title": "No Action — uncontrolled tips before gaining possession",
+      "sanction": "none",
+      "terminology": "No Action",
+      "position": "No sanction — play continues.",
+      "awardedTo": "No sanction is awarded.",
+      "signal": null,
+      "keyIndicators": [
+        "Player bats, tips or deflects the ball one or more times in an uncontrolled attempt to catch it",
+        "The player had not gained possession before those touches",
+        "Possession is then taken cleanly"
+      ],
+      "procedure": [
+        "A player may tip or bat the ball in an uncontrolled attempt to gain possession, any number of times, and then catch it [11.1].",
+        "This is not a replayed ball, because the player never had possession to release.",
+        "Play on — no whistle, no signal."
+      ],
+      "notes": "Contrast replayed ball [11.7], where a player bats or bounces the ball in a controlled way and then catches it, and repossession [11.6], which follows a genuine release.",
+      "keywords": [
+        "tipped the ball three times",
+        "tipped it several times",
+        "juggled the ball",
+        "uncontrolled",
+        "fumbled",
+        "bobbled",
+        "tipped in the air then caught",
+        "batted it up and caught it",
+        "juggle"
+      ]
+    },
+    {
+      "id": "na-ball-on-ground-other-area",
+      "category": "Offside",
+      "rule": "14.3",
+      "ruleName": "Offside",
+      "heading": "Requirements",
+      "title": "No Action — ball on the ground in an area the player may not enter",
+      "sanction": "none",
+      "terminology": "No Action",
+      "position": "No sanction — play continues.",
+      "awardedTo": "No sanction is awarded.",
+      "signal": null,
+      "keyIndicators": [
+        "Player's feet remain wholly within an area allowed for their position",
+        "The ball, or a hand on the ball, is over or in contact with an area they may not enter",
+        "The player does not enter the offside area"
+      ],
+      "procedure": [
+        "Offside applies to where the player is, not to where the ball is [14.3].",
+        "A player whose feet are in an allowed area may lean on, or play, a ball that is on the ground in an area they may not enter.",
+        "Play on — no whistle, no signal."
+      ],
+      "notes": "Contrast offside [14.1], where the player themselves enters an area not designated for their position.",
+      "keywords": [
+        "ball on the ground in the circle",
+        "leaning on the ball",
+        "used the ball to balance",
+        "tripped and leant on the ball",
+        "feet outside the circle ball inside",
+        "hand on the ball in the circle"
+      ]
+    },
+    {
+      "id": "na-jump-from-own-third",
+      "category": "Passing distances",
+      "rule": "12.4",
+      "ruleName": "Passing distances",
+      "heading": "Over a third",
+      "title": "No Action — jumping from one third and landing in the next",
+      "sanction": "none",
+      "terminology": "No Action",
+      "position": "No sanction — play continues.",
+      "awardedTo": "No sanction is awarded.",
+      "signal": null,
+      "keyIndicators": [
+        "Receiver jumps from the third the ball is travelling into, catches it in the air and lands in an adjacent third",
+        "The ball is deemed to have been caught in the third the player jumped from",
+        "The ball has not crossed a complete third untouched"
+      ],
+      "procedure": [
+        "Judge where the player took off from, not where they landed [12.4].",
+        "A player who jumps from a third, catches the ball in the air and lands in another third has caught the ball in the third they left.",
+        "Play on — no whistle, no signal."
+      ],
+      "notes": "Contrast over a third [12.3], where the ball itself travels across a complete third without being caught or touched in it.",
+      "keywords": [
+        "jumped from the third",
+        "took off from the goal third",
+        "caught in the air and landed",
+        "jumped and landed in the centre third",
+        "landed in another third",
+        "jumped from her own third",
+        "caught the ball in the air and landed",
+        "jumped from her attacking goal third",
+        "jumped from the goal third",
+        "jumped from the attacking third",
+        "jumped from her third",
+        "jumped from"
+      ]
+    },
+    {
+      "id": "na-vacant-position",
+      "category": "Stoppages",
+      "rule": "10.20",
+      "ruleName": "Stoppages",
+      "heading": "Injury/illness of a player or blood",
+      "title": "No Action — a team chooses to play on with a position left vacant",
+      "sanction": "none",
+      "terminology": "No Action",
+      "position": "No sanction — play restarts normally.",
+      "awardedTo": "No sanction is awarded.",
+      "signal": null,
+      "keyIndicators": [
+        "A player leaves the court during a stoppage for injury, illness or blood",
+        "The team makes no substitution",
+        "Play resumes with that position left vacant"
+      ],
+      "procedure": [
+        "A team may continue with fewer than seven players, leaving the position vacant [10.20].",
+        "No sanction follows — this is a permitted choice, not an infringement.",
+        "Restart play as the stoppage requires, with the team that had possession."
+      ],
+      "notes": "Where the vacant position is Centre, another player must move to play as Centre so that play can continue with a centre pass.",
+      "keywords": [
+        "position left vacant",
+        "left the position vacant",
+        "no substitution made",
+        "played on with six",
+        "carried on a player short",
+        "opted to leave the position vacant"
       ]
     }
   ],

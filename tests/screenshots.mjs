@@ -1,7 +1,10 @@
 import { chromium } from 'playwright-core';
 import path from 'path';
-const exe = '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
-const browser = await chromium.launch({ executablePath: exe });
+import fs from 'fs';
+// Same browser resolution as scenarios.test.mjs — see the note there.
+const exe = process.env.PLAYWRIGHT_CHROMIUM_PATH
+  || '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
+const browser = await chromium.launch(fs.existsSync(exe) ? { executablePath: exe } : {});
 const url = 'file://'+path.resolve(process.cwd(),'index.html');
 async function shot(name, theme, actions){
   const page = await browser.newPage({ viewport:{width:1000,height:1400}, deviceScaleFactor:2, colorScheme: theme });
