@@ -1,0 +1,13 @@
+# Dependencies (dev-only, for the test harness)
+node_modules/
+
+# Local scratch / generated screenshots
+scratch_*.png
+tests/*.png
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,841 @@
+<title>Netball Umpiring Handbook — Scenario Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="A scenario-driven umpiring aid grounded in the World Netball Rules of Netball, 2024 Edition. Describe a match situation and get the correct ruling, sanction, terminology and hand signal." />
+<style>
+  /* Rosebud Netball brand: rosebud purple accent on an RCS navy/indigo base. */
+  :root {
+    --paper:#F6F5FA; --surface:#FFFFFF; --surface-2:#F0EDF7; --surface-3:#E5E0F1;
+    --ink:#211B3A; --ink-soft:#544B6E; --ink-faint:#8B84A0;
+    --line:#E3DCEF; --line-soft:#EDE9F6;
+    --accent:#8E2DBE; --accent-strong:#6C1E96; --accent-wash:#F3E7FB;
+    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#3E4C8A; --danger:#C6413A;
+    --free-wash:#E6F5EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#E7E9F6; --danger-wash:#F8E6E4;
+    --shadow:0 1px 2px rgba(33,27,58,.07), 0 8px 24px rgba(33,27,58,.07);
+    --radius:14px; --radius-sm:9px;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Code","Roboto Mono",Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#12102A; --surface:#1B1740; --surface-2:#241E4E; --surface-3:#2E2760;
+      --ink:#ECE9F6; --ink-soft:#B4ACD0; --ink-faint:#8880A8;
+      --line:#332B5C; --line-soft:#2A2450;
+      --accent:#B45AE6; --accent-strong:#C888F0; --accent-wash:#2A1F47;
+      --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#7C87D6; --danger:#E0655C;
+      --free-wash:#152A1D; --penalty-wash:#2C2113; --throwin-wash:#182338; --possession-wash:#20213F; --danger-wash:#2C1917;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F5FA; --surface:#FFFFFF; --surface-2:#F0EDF7; --surface-3:#E5E0F1;
+    --ink:#211B3A; --ink-soft:#544B6E; --ink-faint:#8B84A0; --line:#E3DCEF; --line-soft:#EDE9F6;
+    --accent:#8E2DBE; --accent-strong:#6C1E96; --accent-wash:#F3E7FB;
+    --free:#1F9D57; --penalty:#E0892B; --throwin:#2D6CB5; --possession:#3E4C8A; --danger:#C6413A;
+    --free-wash:#E6F5EC; --penalty-wash:#FBEEDD; --throwin-wash:#E4EDF8; --possession-wash:#E7E9F6; --danger-wash:#F8E6E4;
+    --shadow:0 1px 2px rgba(33,27,58,.07), 0 8px 24px rgba(33,27,58,.07);
+  }
+  :root[data-theme="dark"]{
+    --paper:#12102A; --surface:#1B1740; --surface-2:#241E4E; --surface-3:#2E2760;
+    --ink:#ECE9F6; --ink-soft:#B4ACD0; --ink-faint:#8880A8; --line:#332B5C; --line-soft:#2A2450;
+    --accent:#B45AE6; --accent-strong:#C888F0; --accent-wash:#2A1F47;
+    --free:#37B36B; --penalty:#EDA24E; --throwin:#5B93D6; --possession:#7C87D6; --danger:#E0655C;
+    --free-wash:#152A1D; --penalty-wash:#2C2113; --throwin-wash:#182338; --possession-wash:#20213F; --danger-wash:#2C1917;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 30px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; }
+  body {
+    font-family:var(--sans); background:var(--paper); color:var(--ink);
+    line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  ::selection { background:var(--accent-wash); }
+  a { color:var(--accent-strong); }
+
+  /* ---------- Header ---------- */
+  header.app {
+    position:sticky; top:0; z-index:50; background:var(--surface); border-bottom:1px solid var(--line);
+  }
+  .bar { max-width:1080px; margin:0 auto; padding:13px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .brand-logo { height:38px; width:38px; flex:none; display:block; border-radius:9px; background:#08060e; object-fit:cover; box-shadow:0 1px 2px rgba(0,0,0,.25); }
+  .brand-title { font-size:clamp(15px,4.3vw,21px); font-weight:800; letter-spacing:-.02em; white-space:nowrap; color:var(--ink); line-height:1.05; }
+  .brand { display:flex; align-items:center; gap:10px; min-width:0; }
+  .theme-btn {
+    appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+    width:36px; height:36px; border-radius:9px; cursor:pointer; display:grid; place-items:center; flex:none;
+  }
+  .theme-btn:hover { color:var(--ink); }
+  .theme-btn svg { width:17px; height:17px; }
+  .tabs { max-width:1080px; margin:0 auto; display:flex; padding:0 8px; }
+  .tab {
+    flex:1; appearance:none; border:0; background:transparent; color:var(--ink-soft); cursor:pointer;
+    font:inherit; font-size:13.5px; font-weight:600; padding:11px 6px 12px; letter-spacing:-.01em; text-align:center;
+    border-bottom:2px solid transparent; transition:color .15s, border-color .15s;
+  }
+  .tab:hover { color:var(--ink); }
+  .tab[aria-selected="true"] { color:var(--accent-strong); border-bottom-color:var(--accent); }
+
+  main { max-width:1080px; margin:0 auto; padding:26px 20px 80px; }
+  .view { display:none; animation:fade .25s ease; }
+  .view.active { display:block; }
+  @keyframes fade { from { opacity:0; transform:translateY(4px);} to { opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce){ .view, header.app *, .card { animation:none !important; transition:none !important; } }
+
+  /* ---------- Assistant ---------- */
+  .hero { text-align:left; margin-bottom:18px; }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-strong); }
+  h1 { font-size:clamp(26px,4vw,36px); line-height:1.08; letter-spacing:-.025em; margin:.35em 0 .25em; text-wrap:balance; font-weight:800; }
+  .lede { font-size:16px; color:var(--ink-soft); max-width:60ch; margin:0; }
+
+  .ask { margin-top:22px; }
+  .ask-wrap {
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:8px; display:flex; gap:8px; align-items:flex-end;
+  }
+  .ask-wrap:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-wash), var(--shadow); }
+  textarea#q {
+    flex:1; border:0; background:transparent; color:var(--ink); font:inherit; font-size:16px;
+    resize:none; padding:11px 10px; max-height:200px; min-height:26px; line-height:1.45; outline:none;
+  }
+  textarea#q::placeholder { color:var(--ink-faint); }
+  .go {
+    appearance:none; border:0; cursor:pointer; background:var(--accent); color:#fff; font:inherit; font-weight:650;
+    padding:11px 18px; border-radius:10px; font-size:14.5px; flex:none; display:inline-flex; align-items:center; gap:7px;
+    transition:background .15s, transform .05s;
+  }
+  .go:hover { background:var(--accent-strong); }
+  .go:active { transform:translateY(1px); }
+  .go svg { width:16px; height:16px; }
+
+  .examples { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .examples .lbl { font-size:12.5px; color:var(--ink-faint); font-weight:600; margin-right:2px; }
+  .chip {
+    appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+    font:inherit; font-size:12.5px; padding:6px 11px; border-radius:20px; cursor:pointer; transition:.15s;
+  }
+  .chip:hover { border-color:var(--accent); color:var(--accent-strong); background:var(--accent-wash); }
+
+  .results { margin-top:26px; }
+  .result-head { display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .result-head h2 { font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin:0; font-weight:700; }
+  .conf { font-size:12px; color:var(--ink-faint); }
+  .conf b { color:var(--ink-soft); }
+  .asked { background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:11px 15px; margin:0 0 16px; }
+  .asked-lbl { display:block; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:4px; }
+  .asked p { margin:0; font-size:15.5px; color:var(--ink); font-style:italic; line-height:1.45; }
+
+  /* ---------- Ruling card ---------- */
+  .card {
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden; margin-bottom:16px; animation:fade .3s ease;
+  }
+  .card.slim { box-shadow:none; }
+  .card-top { display:flex; gap:6px; padding:16px 18px 0; align-items:flex-start; flex-wrap:wrap; }
+  .rule-tag {
+    font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent-strong);
+    background:var(--accent-wash); padding:3px 8px; border-radius:6px; white-space:nowrap;
+  }
+  .cat-tag { font-size:12px; color:var(--ink-faint); font-weight:600; padding:3px 2px; }
+  .card-body { padding:10px 18px 18px; }
+  .card h3 { font-size:19px; letter-spacing:-.02em; margin:.1em 0 .5em; line-height:1.2; font-weight:750; text-wrap:balance; }
+  .card.slim h3 { font-size:16px; }
+
+  .sanction-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:2px 0 14px; }
+  .pill {
+    display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:700; letter-spacing:-.01em;
+    padding:6px 12px; border-radius:22px; border:1px solid transparent;
+  }
+  .pill .dot { width:8px; height:8px; border-radius:50%; }
+  .pill.free { color:var(--free); background:var(--free-wash); border-color:color-mix(in srgb,var(--free) 25%,transparent);} .pill.free .dot{background:var(--free);}
+  .pill.penalty { color:var(--penalty); background:var(--penalty-wash); border-color:color-mix(in srgb,var(--penalty) 25%,transparent);} .pill.penalty .dot{background:var(--penalty);}
+  .pill.throwin { color:var(--throwin); background:var(--throwin-wash); border-color:color-mix(in srgb,var(--throwin) 25%,transparent);} .pill.throwin .dot{background:var(--throwin);}
+  .pill.possession { color:var(--possession); background:var(--possession-wash); border-color:color-mix(in srgb,var(--possession) 25%,transparent);} .pill.possession .dot{background:var(--possession);}
+  .pill.none { color:var(--ink-soft); background:var(--surface-2); border-color:var(--line);} .pill.none .dot{background:var(--ink-faint);}
+  .term {
+    font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line); padding:5px 10px; border-radius:7px;
+  }
+  .term .k { color:var(--ink-faint); font-weight:600; margin-right:6px; text-transform:uppercase; font-size:10.5px; letter-spacing:.06em;}
+
+  /* Assessment-format answer block */
+  .answer { border:1px solid var(--line); border-radius:var(--radius-sm); overflow:hidden; margin:4px 0 6px; }
+  .ans-row { display:grid; grid-template-columns:150px 1fr; gap:14px; padding:11px 14px; border-top:1px solid var(--line-soft); align-items:baseline; }
+  .ans-row:first-child { border-top:0; background:var(--surface-2); }
+  .ans-lbl { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); }
+  .ans-val { font-size:14px; color:var(--ink); line-height:1.5; display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+  .ans-val > b { font-weight:750; }
+  .ans-sep { color:var(--ink-faint); font-weight:400; font-style:italic; }
+  .ans-val .muted, .muted { color:var(--ink-faint); font-size:12.5px; font-weight:400; }
+  @media (max-width:560px){ .ans-row { grid-template-columns:1fr; gap:4px; } }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:4px; }
+  @media (max-width:640px){ .grid2 { grid-template-columns:1fr; } }
+  .field { background:var(--surface-2); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:11px 13px; }
+  .field .lbl { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:4px; display:flex; align-items:center; gap:6px;}
+  .field .val { font-size:13.5px; color:var(--ink); line-height:1.5; }
+  .signal-badge {
+    display:inline-grid; place-items:center; width:20px; height:20px; border-radius:6px; flex:none;
+    background:var(--accent); color:#fff; font-size:11px; font-weight:700; font-family:var(--mono);
+  }
+
+  .block { margin-top:16px; }
+  .block > .lbl { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:9px; display:flex; align-items:center; gap:7px;}
+  ol.steps { margin:0; padding:0; list-style:none; counter-reset:s; }
+  ol.steps li { counter-increment:s; position:relative; padding:0 0 11px 34px; font-size:14px; color:var(--ink); line-height:1.5; }
+  ol.steps li::before {
+    content:counter(s); position:absolute; left:0; top:-1px; width:22px; height:22px; border-radius:6px;
+    background:var(--accent-wash); color:var(--accent-strong); font-size:12px; font-weight:700; display:grid; place-items:center; font-family:var(--mono);
+  }
+  ol.steps li:last-child { padding-bottom:0; }
+  ul.ind { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px; }
+  ul.ind li { position:relative; padding-left:22px; font-size:13.5px; color:var(--ink-soft); line-height:1.45; }
+  ul.ind li::before { content:""; position:absolute; left:4px; top:8px; width:6px; height:6px; border-radius:2px; background:var(--accent); transform:rotate(45deg); }
+  .note { margin-top:14px; font-size:13px; color:var(--ink-soft); background:var(--penalty-wash); border-left:3px solid var(--penalty); padding:10px 13px; border-radius:0 8px 8px 0; }
+  .note b { color:var(--ink); }
+  code.r { font-family:var(--mono); font-size:12px; background:var(--surface-3); padding:1px 5px; border-radius:4px; color:var(--ink-soft); }
+
+  /* Interactive decision panel */
+  .decide { background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; box-shadow:var(--shadow); padding:16px 18px; margin:0 0 16px; }
+  .decide > .lbl { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-strong); margin-bottom:8px; }
+  .dec-prompt { font-size:15px; color:var(--ink); font-weight:600; margin:0 0 12px; line-height:1.5; }
+  .dec-safety { font-size:13px; color:var(--ink); background:var(--danger-wash); border-left:3px solid var(--danger); padding:9px 12px; border-radius:0 8px 8px 0; margin:0 0 12px; line-height:1.5; }
+  .dec-safety b { color:var(--ink); }
+  .dec-factors-lbl { font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 7px; }
+  ul.dec-factors { margin:0 0 14px; }
+  .dec-opts { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 4px; }
+  .dec-opt {
+    appearance:none; cursor:pointer; font:inherit; font-size:13.5px; font-weight:650; text-align:left;
+    background:var(--surface-2); color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:10px 14px; transition:.15s;
+  }
+  .dec-opt:hover { border-color:var(--accent); color:var(--accent-strong); }
+  .dec-opt[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .dec-result { margin-top:14px; padding-top:14px; border-top:1px solid var(--line); animation:fade .2s ease; }
+  .dec-badge { font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--accent-strong); background:var(--accent-wash); padding:4px 9px; border-radius:6px; }
+  .dec-action { font-size:17px; font-weight:750; letter-spacing:-.01em; margin:11px 0 10px; line-height:1.25; }
+  .dec-detail { font-size:13.5px; color:var(--ink-soft); line-height:1.6; margin:10px 0 0; }
+
+  /* Game-management escalation card */
+  .gm-card { border-left:3px solid var(--accent); }
+  .gm-lead { font-size:14px; color:var(--ink); line-height:1.55; margin:2px 0 4px; }
+  .gm-ladder { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; counter-reset:none; }
+  .gm-ladder li { display:flex; gap:11px; align-items:flex-start; }
+  .gm-dot { flex:none; width:22px; height:22px; border-radius:6px; display:grid; place-items:center; font-size:12px; font-weight:700; font-family:var(--mono); }
+  .gm-done .gm-dot { background:var(--free-wash); color:var(--free); border:1px solid color-mix(in srgb,var(--free) 30%,transparent); }
+  .gm-next .gm-dot { background:var(--accent); color:#fff; }
+  .gm-later .gm-dot { background:var(--surface-2); color:var(--ink-faint); border:1px solid var(--line); }
+  .gm-step { font-size:13.5px; color:var(--ink); line-height:1.4; }
+  .gm-step b { font-weight:700; }
+  .gm-next .gm-step b { color:var(--accent-strong); }
+  .gm-later .gm-step { color:var(--ink-faint); }
+  .gm-later .gm-step b { color:var(--ink-soft); }
+  .gm-desc { display:block; font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+  .gm-later .gm-desc { color:var(--ink-faint); }
+  .gm-underlying { font-size:13.5px; color:var(--ink); line-height:1.6; margin:0; }
+
+  .empty { text-align:center; padding:40px 20px; color:var(--ink-soft); }
+  .empty svg { width:40px; height:40px; color:var(--ink-faint); margin-bottom:10px; }
+
+  /* ---------- Library ---------- */
+  .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:18px; }
+  .search {
+    flex:1; min-width:200px; display:flex; align-items:center; gap:8px; background:var(--surface);
+    border:1px solid var(--line); border-radius:10px; padding:9px 13px; box-shadow:var(--shadow);
+  }
+  .search:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-wash); }
+  .search svg { width:16px; height:16px; color:var(--ink-faint); flex:none; }
+  .search input { flex:1; border:0; background:transparent; font:inherit; font-size:14.5px; color:var(--ink); outline:none; }
+  .cats { display:flex; gap:7px; flex-wrap:wrap; }
+  .catbtn {
+    appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+    font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:20px; cursor:pointer; transition:.15s;
+  }
+  .catbtn:hover { color:var(--ink); border-color:var(--ink-faint); }
+  .catbtn[aria-pressed="true"] { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .lib-count { font-size:12.5px; color:var(--ink-faint); margin:2px 2px 14px; }
+
+  /* Rules accordion */
+  .rule-acc { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); box-shadow:var(--shadow); margin-bottom:10px; overflow:hidden; }
+  .rule-acc > summary {
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px; padding:14px 16px;
+    font-weight:700; color:var(--ink); user-select:none;
+  }
+  .rule-acc > summary::-webkit-details-marker { display:none; }
+  .rule-acc > summary:hover { background:var(--surface-2); }
+  .rule-no { flex:none; min-width:30px; height:30px; padding:0 7px; border-radius:8px; background:var(--accent); color:#fff; font-family:var(--mono); font-weight:700; font-size:14px; display:grid; place-items:center; }
+  .rule-name { flex:1; font-size:15.5px; letter-spacing:-.01em; }
+  .rule-meta { font-size:12px; color:var(--ink-faint); font-weight:600; white-space:nowrap; }
+  .rule-chev { flex:none; color:var(--ink-faint); transition:transform .2s; }
+  .rule-acc[open] > summary .rule-chev { transform:rotate(180deg); }
+  .rule-acc[open] > summary { border-bottom:1px solid var(--line-soft); }
+  .rule-panel { padding:14px 16px 6px; }
+  .rule-summary { font-size:14px; color:var(--ink-soft); margin:0 0 14px; line-height:1.55; }
+  .rule-section { margin:0 0 14px; }
+  .rsec-head { font-size:13.5px; font-weight:750; color:var(--accent-strong); letter-spacing:-.01em; margin:0 0 7px; padding-bottom:5px; border-bottom:1px solid var(--line-soft); }
+  .rule-points { margin:0 0 8px; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .rule-points li { position:relative; padding-left:20px; font-size:13.5px; color:var(--ink); line-height:1.5; }
+  .rule-points li::before { content:""; position:absolute; left:3px; top:8px; width:6px; height:6px; border-radius:2px; background:var(--accent); transform:rotate(45deg); }
+  .rulings-head { font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin:16px 0 10px; }
+  .rule-panel .card { margin-bottom:12px; }
+  .rule-none { font-size:13px; color:var(--ink-faint); font-style:italic; margin:6px 0 10px; }
+
+  /* ---------- Signals ---------- */
+  .sig-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; }
+  .sig {
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); padding:14px 15px; box-shadow:var(--shadow);
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .sig .n { flex:none; width:30px; height:30px; border-radius:8px; background:var(--accent); color:#fff; font-family:var(--mono); font-weight:700; font-size:14px; display:grid; place-items:center; }
+  .sig b { font-size:14px; letter-spacing:-.01em; display:block; margin-bottom:3px; line-height:1.25; }
+  .sig p { margin:0; font-size:12.5px; color:var(--ink-soft); line-height:1.45; }
+
+  /* ---------- About ---------- */
+  .prose { max-width:68ch; }
+  .prose h2 { font-size:20px; letter-spacing:-.02em; margin:26px 0 8px; }
+  .prose h3 { font-size:15px; margin:20px 0 6px; }
+  .prose p, .prose li { font-size:14.5px; color:var(--ink-soft); line-height:1.6; }
+  .prose ul { padding-left:20px; }
+  .callout { background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:14px 16px; margin:16px 0; box-shadow:var(--shadow); }
+  .callout p { margin:0; color:var(--ink); font-size:14px; }
+  .disclaimer { font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--line); margin-top:34px; padding-top:16px; }
+  .roadmap { display:grid; gap:10px; margin:14px 0; }
+  .phase { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:13px 15px; box-shadow:var(--shadow); }
+  .phase b { font-size:13.5px; } .phase .tag { font-family:var(--mono); font-size:11px; color:var(--accent-strong); background:var(--accent-wash); padding:2px 7px; border-radius:5px; margin-right:8px;}
+  .phase p { margin:5px 0 0; font-size:13px; }
+</style>
+
+<header class="app">
+  <div class="bar">
+    <div class="brand">
+      <img class="brand-logo" src="data:image/jpeg;base64,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" alt="Rosebud Netball logo" />
+      <span class="brand-title">Netball Umpiring Handbook</span>
+    </div>
+    <button class="theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button class="tab" role="tab" data-view="assistant" aria-selected="true">Assistant</button>
+    <button class="tab" role="tab" data-view="library" aria-selected="false">Rulings</button>
+    <button class="tab" role="tab" data-view="signals" aria-selected="false">Signals</button>
+    <button class="tab" role="tab" data-view="about" aria-selected="false">About</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ASSISTANT -->
+  <section class="view active" id="view-assistant" role="tabpanel">
+    <div class="hero">
+      <div class="eyebrow">Scenario Assistant</div>
+      <h1>Describe what happened. Get the correct ruling.</h1>
+      <p class="lede">Type a match situation in plain language — as you would call it on court — and the assistant returns the ruling, sanction, exact umpire terminology, hand signal and step-by-step procedure, grounded in the 2024 Rules of Netball.</p>
+    </div>
+
+    <div class="ask">
+      <div class="ask-wrap">
+        <textarea id="q" rows="1" placeholder="e.g. The GA caught the ball, lifted her landing foot and stepped again before passing…"></textarea>
+        <button class="go" id="goBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Rule on it
+        </button>
+      </div>
+      <div class="examples" id="examples">
+        <span class="lbl">Try:</span>
+      </div>
+    </div>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section class="view" id="view-library" role="tabpanel">
+    <div class="hero">
+      <div class="eyebrow">Rulings Library</div>
+      <h1>The Rules of Netball, rule by rule.</h1>
+      <p class="lede">The full list of all 21 rules. Tap a rule to open its provisions and every detailed ruling under it.</p>
+    </div>
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="libSearch" type="search" placeholder="Search rules, rulings, terminology…" />
+      </label>
+      <button class="catbtn" id="expandAll" type="button">Expand all</button>
+    </div>
+    <p class="lib-count" id="libCount"></p>
+    <div id="libList"></div>
+  </section>
+
+  <!-- SIGNALS -->
+  <section class="view" id="view-signals" role="tabpanel">
+    <div class="hero">
+      <div class="eyebrow">Umpire Hand Signals</div>
+      <h1>The 23 official signals.</h1>
+      <p class="lede">As illustrated in the Rules of Netball, 2024 Edition (pages 70–77).</p>
+    </div>
+    <div class="sig-grid" id="sigGrid"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="view-about" role="tabpanel">
+    <div class="prose">
+      <div class="eyebrow">About</div>
+      <h1>How this handbook works.</h1>
+      <div class="callout">
+        <p><b>Point of truth:</b> every ruling in this app is grounded verbatim in the <b>World Netball — Rules of Netball, 2024 Edition</b>. Rule references in square brackets, e.g. <code class="r">[13.1]</code>, point to the exact clause. Where translated wording diverges, the English text is authoritative.</p>
+      </div>
+
+      <h2>What it does today</h2>
+      <p>This is the first working prototype — a single, self-contained web page you can open in a browser or host as a static site (e.g. Azure Static Web Apps). It contains three tools:</p>
+      <ul>
+        <li><b>Scenario Assistant</b> — describe a situation and get the matched ruling with sanction, terminology, position, signal and procedure.</li>
+        <li><b>Rulings Library</b> — browse and search every infringement by category.</li>
+        <li><b>Hand Signals</b> — the 23 official umpire signals.</li>
+      </ul>
+      <p>The assistant currently matches your description against a curated, rules-grounded knowledge base entirely on your device — nothing is sent anywhere. This keeps every answer traceable to a specific rule, which is exactly what an umpiring aid needs.</p>
+      <p>Answers are laid out in the same structure umpires are marked on in the <b>Europe Netball ‘A’ &amp; ‘B’ written assessment</b>: the <b>infringement</b> (rule name and heading), the <b>sanction/action</b>, <b>who it is awarded to</b>, and <b>where it is taken</b> — followed by the procedure and hand signal.</p>
+
+      <h2>Where it is going</h2>
+      <div class="roadmap">
+        <div class="phase"><span class="tag">Now</span><b>Grounded prototype</b><p>Static HTML + on-device ruling engine over the full 2024 rulebook. Hosted in the RCS Azure environment for review.</p></div>
+        <div class="phase"><span class="tag">Next</span><b>Conversational assistant</b><p>Natural-language chatbot backed by an LLM constrained to the rulebook (retrieval-augmented), so it answers nuanced, multi-part scenarios while still citing the rule. Backend hosted in Azure.</p></div>
+        <div class="phase"><span class="tag">Then</span><b>iPhone &amp; Android apps</b><p>Native/hybrid mobile apps sharing the same rules engine and API, with offline access for court-side use.</p></div>
+      </div>
+
+      <p class="disclaimer">This tool is a decision-support aid for match officials and is not a substitute for the full Rules of Netball or formal umpire training and accreditation. Umpire judgement always applies, and player safety is the paramount consideration in every decision. “Rules of Netball” © World Netball. This prototype is produced by Rosebud Cloud Solutions for umpire education and reference.</p>
+    </div>
+  </section>
+</main>
+
+<script id="rulesData" type="application/json">/*__RULES_DATA__*/</script>
+<script>
+(function(){
+  "use strict";
+  var DATA = JSON.parse(document.getElementById('rulesData').textContent);
+  var RULINGS = DATA.rulings, SIGNALS = DATA.signals, ST = DATA.sanctionTypes;
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+
+  /* ---- Theme ---- */
+  var root = document.documentElement;
+  $('#themeBtn').addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    if(!cur){ cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'; }
+    root.setAttribute('data-theme', cur==='dark'?'light':'dark');
+  });
+
+  /* ---- Tabs ---- */
+  function showView(v){
+    $$('.tab').forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.view===v)); });
+    $$('.view').forEach(function(s){ s.classList.toggle('active', s.id==='view-'+v); });
+    if(v==='library' && !libRendered){ renderLibrary(); libRendered=true; }
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+  $$('.tab').forEach(function(t){ t.addEventListener('click', function(){ showView(t.dataset.view); }); });
+
+  /* ---- Rendering helpers ---- */
+  function sanctionMeta(key){
+    if(!key) return { cls:'none', label:'No sanction — play on / procedure' };
+    var m = ST[key] || {};
+    return { cls:key, label:m.label || key };
+  }
+  function rulingCard(r, slim){
+    var sm = sanctionMeta(r.sanction);
+    var sig = r.signal ? SIGNALS.find(function(s){return s.n===r.signal;}) : null;
+    var html = '';
+    html += '<article class="card'+(slim?' slim':'')+'">';
+    var ruleFull = esc(r.ruleName || r.category) + (r.heading ? ' — ' + esc(r.heading) : '');
+    html += '<div class="card-top"><span class="rule-tag">Rule '+esc(r.rule)+'</span><span class="cat-tag">· '+ruleFull+'</span></div>';
+    html += '<div class="card-body">';
+    html += '<h3>'+esc(r.title)+'</h3>';
+
+    // Assessment-format answer (Infringement / Sanction / Awarded to / Where taken),
+    // matching how umpires are marked in the Europe Netball A & B written assessment.
+    var infr = r.heading ? (esc(r.ruleName)+' <span class="ans-sep">and</span> '+esc(r.heading)) : esc(r.ruleName);
+    html += '<div class="answer">';
+    html += '<div class="ans-row"><span class="ans-lbl">Infringement</span><span class="ans-val"><b>'+infr+'</b></span></div>';
+    html += '<div class="ans-row"><span class="ans-lbl">Sanction / action</span><span class="ans-val"><span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>'+(r.sanction==='penalty'?'<span class="muted">against the infringer, who stands out of play</span>':'')+'</span></div>';
+    if(r.awardedTo){ html += '<div class="ans-row"><span class="ans-lbl">Awarded to</span><span class="ans-val">'+esc(r.awardedTo)+'</span></div>'; }
+    html += '<div class="ans-row"><span class="ans-lbl">Where taken</span><span class="ans-val">'+esc(r.position)+'</span></div>';
+    if(r.terminology){ html += '<div class="ans-row"><span class="ans-lbl">Umpire call</span><span class="ans-val"><span class="term">'+esc(r.terminology)+'</span></span></div>'; }
+    if(sig){
+      html += '<div class="ans-row"><span class="ans-lbl">Hand signal</span><span class="ans-val"><span class="signal-badge">'+sig.n+'</span> '+esc(sig.name)+' <span class="muted">'+esc(sig.how)+'</span></span></div>';
+    } else {
+      html += '<div class="ans-row"><span class="ans-lbl">Hand signal</span><span class="ans-val"><span class="muted">No specific hand signal — call the terminology clearly.</span></span></div>';
+    }
+    html += '</div>';
+
+    if(r.keyIndicators && r.keyIndicators.length){
+      html += '<div class="block"><div class="lbl">What to look for</div><ul class="ind">';
+      r.keyIndicators.forEach(function(k){ html += '<li>'+esc(k)+'</li>'; });
+      html += '</ul></div>';
+    }
+    html += '<div class="block"><div class="lbl">Procedure</div><ol class="steps">';
+    r.procedure.forEach(function(p){ html += '<li>'+esc(p)+'</li>'; });
+    html += '</ol></div>';
+    if(r.notes){ html += '<div class="note"><b>Note:</b> '+esc(r.notes)+'</div>'; }
+    html += '</div></article>';
+    return html;
+  }
+
+  /* ---- Matching engine ---- */
+  var STOP = {'the':1,'a':1,'an':1,'and':1,'or':1,'of':1,'to':1,'in':1,'on':1,'at':1,'is':1,'was':1,'were':1,'her':1,'his':1,'their':1,'she':1,'he':1,'they':1,'it':1,'with':1,'for':1,'from':1,'then':1,'that':1,'this':1,'has':1,'had':1,'have':1,'but':1,'as':1,'by':1,'into':1,'out':1,'up':1,'over':1,'not':1,'no':1,'did':1,'do':1,'player':1,'players':1,'ball':1,'umpire':1,'when':1,'while':1,'after':1,'before':1,'so':1,'i':1,'my':1};
+  var SYN = { // normalise common phrasings to canonical keyword tokens
+    'stepped':'step','steps':'step','stepping':'step','travelled':'travel','traveling':'travel','traveled':'travel',
+    'pushed':'push','pushing':'push','shoved':'push','barged':'push','bumped':'knock','bump':'knock','knocked':'knock',
+    'grabbed':'grab','held':'hold','holding':'hold','leant':'lean','leaned':'lean','leaning':'lean',
+    'seconds':'second','sec':'second','secs':'second','3':'three',
+    'defending':'defend','defended':'defend','defends':'defend',
+    'intercepted':'intercept','intercepting':'intercept',
+    'obstructed':'obstruction','obstructing':'obstruction',
+    'contacted':'contact','contacting':'contact','collided':'contact','collision':'contact',
+    'shot':'shoot','shooting':'shoot','shoots':'shoot','shooter':'shoot',
+    'kicked':'kick','kicking':'kick','fisted':'fist','punched':'fist',
+    'bounced':'bounce','batted':'bat','tipped':'bat',
+    'offside':'offside','sub':'substitution','subbed':'substitution','substitute':'substitution','substituted':'substitution',
+    'bleeding':'blood','bled':'blood','injured':'injury','hurt':'injury','concussed':'concussion',
+    'retaliated':'retaliation','abused':'abusive','swore':'abusive','swearing':'abusive','swearing':'abusive',
+    'delayed':'delaying','wasting':'delaying','stalling':'held',
+    'landed':'land','landing':'land','caught':'catch','catching':'catch',
+    'circle':'circle','third':'third','line':'line','post':'goalpost'
+  };
+  function norm(t){ t = t.toLowerCase().replace(/[^a-z0-9\s'.-]/g,' '); return t; }
+  function tokens(t){
+    return norm(t).split(/\s+/).map(function(w){ return SYN[w]||w; }).filter(function(w){ return w && !STOP[w] && w.length>1; });
+  }
+  // Precompute index
+  var INDEX = RULINGS.map(function(r){
+    var kw = {}; // term -> weight
+    (r.keywords||[]).forEach(function(k){
+      var phrase = k.indexOf(' ')>-1;
+      kw[k] = phrase ? 5 : 2.5;
+      // also index the mapped-single tokens of the keyword so singular hits count
+      tokens(k).forEach(function(tk){ if(!kw[tk]) kw[tk]=phrase?2:2.5; });
+    });
+    tokens(r.title).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.5; });
+    tokens(r.category).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.2; });
+    tokens((r.keyIndicators||[]).join(' ')).forEach(function(tk){ kw[tk]=(kw[tk]||0)+0.4; });
+    if(r.terminology) tokens(r.terminology).forEach(function(tk){ kw[tk]=(kw[tk]||0)+1.5; });
+    return { r:r, kw:kw };
+  });
+  // Domain reasoning that plain keyword matching misses. These encode rule
+  // logic about court geography, not just surface words.
+  function domainBoost(id, qn){
+    if(id !== 'over-a-third') return 0;
+    // A ball can only travel between the two OPPOSITE thirds (defending <-> attacking)
+    // by crossing the centre third; if it is not touched there, it is "over a third".
+    var hasDef = /(defend\w*|defensive)\s+(goal\s+)?third|defending third/.test(qn);
+    var hasAtt = /(attack\w*)\s+(goal\s+)?third|attacking third/.test(qn);
+    var overMid = /(over|across|skip\w*|miss\w*|cross\w*)\s+(the\s+)?(centre|center|middle)\s+third/.test(qn);
+    var twoLines = /(two|both)\s+transverse\s+lines|crossed\s+two/.test(qn);
+    var pass = /(throw|threw|thrown|pass\w*|caught|catch\w*|sent|fed)/.test(qn);
+    var touchedMid = /(touch\w*|tipp?\w*|deflect\w*|bounce\w*|caught|catch\w*)[^.]{0,30}(centre|center|middle)\s+third/.test(qn);
+    if(((hasDef && hasAtt) || overMid || twoLines) && pass && !touchedMid) return 8;
+    return 0;
+  }
+  // Some rulings are impossible without a specific context; suppress them otherwise.
+  function suppressed(id, outCtx){
+    // "Defending from out of court" requires the player to actually be out of court;
+    // without that context, the bare word "defending" must not trigger it.
+    return (id === 'defending-out-of-court') && !outCtx;
+  }
+  function score(query){
+    var qn = ' '+norm(query)+' ';
+    var qtok = tokens(query);
+    var qset = {}; qtok.forEach(function(t){ qset[t]=1; });
+    var outCtx = /(out of court|outside the court|off the court|off court|court surround|behind the (goal ?line|post)|over the (side ?line|goal ?line))/.test(qn);
+    var out = INDEX.map(function(entry){
+      var s=0, hits={};
+      // phrase matches (multi-word keywords) against raw normalised query
+      (entry.r.keywords||[]).forEach(function(k){
+        if(k.indexOf(' ')>-1 && qn.indexOf(' '+norm(k)+' ')>-1){ s+=6; hits[k]=1; }
+      });
+      // token weight matches
+      for(var term in entry.kw){
+        if(term.indexOf(' ')>-1) continue;
+        if(qset[term]){ s+=entry.kw[term]; hits[term]=1; }
+      }
+      // small boost: proportion of distinct query tokens that hit
+      var distinct = Object.keys(hits).length;
+      s += distinct*0.6;
+      // domain reasoning + context guards
+      s += domainBoost(entry.r.id, qn);
+      if(suppressed(entry.r.id, outCtx)) s = 0;
+      return { r:entry.r, s:s, hits:distinct };
+    }).filter(function(x){ return x.s>0; });
+    out.sort(function(a,b){ return b.s-a.s; });
+    return out;
+  }
+
+  /* ---- Game-management escalation reasoning (Rule 18) ---- */
+  var GM = DATA.gameManagement || null;
+  function detectGameManagement(qn){
+    if(!GM) return null;
+    // Which game-management action has ALREADY been taken?
+    var priors = [
+      { i:0, re:/proactive advice|gave (her|him|them|the player|a player)?\s*advice|given (her|him|them|the player|a player)?\s*advice|already advised|advised (her|him|them|the player)|spoke to (her|him|them|the player)|had a word|been spoken to/ },
+      { i:1, re:/advanced (the )?(sanction|penalty)|escalat(ed|e)d? (the )?(sanction|penalty|free pass)|advanced and escalated|already advanced/ },
+      { i:2, re:/(gave|given|issued|already)\s+(a\s+)?warning|formally warned|been warned|has been warned|already warned|warned (her|him|them|the player)/ },
+      { i:3, re:/suspend(ed)?|suspension (has|was) (given|awarded)|already suspended/ },
+      { i:4, re:/ordered off|ordering off/ }
+    ];
+    var priorIndex = -1;
+    priors.forEach(function(p){ if(p.re.test(qn)) priorIndex = Math.max(priorIndex, p.i); });
+    var continues = /continu\w*|still|again|persist\w*|repeat\w*|keeps|kept|carries on|carry on|does it again|won'?t stop|not stopping|hasn'?t stopped/.test(qn);
+    var asksNext = /what (should|do|shall|would|can) i|what('?s| is) next|next (step|action)|do now|happens next|escalat/.test(qn);
+    var mentionsGm = /game management|proactive advice|advance the sanction|escalate/.test(qn);
+    if(priorIndex >= 0 && (continues || asksNext || mentionsGm)){
+      var nextIndex = Math.min(priorIndex + 1, GM.ladder.length - 1);
+      return { priorIndex:priorIndex, nextIndex:nextIndex };
+    }
+    return null;
+  }
+  function gmCard(gm, underlying, query){
+    var next = GM.ladder[gm.nextIndex], prior = GM.ladder[gm.priorIndex];
+    var atTop = gm.priorIndex >= GM.ladder.length - 1;
+    var html = '<article class="card gm-card">';
+    html += '<div class="card-top"><span class="rule-tag">Rule '+esc(GM.rule)+'</span><span class="cat-tag">· Game management — '+esc(GM.heading)+'</span></div>';
+    html += '<div class="card-body">';
+    html += '<h3>Next game-management action: '+esc(next.label)+'</h3>';
+    html += '<p class="gm-lead">You’ve already given <b>'+esc(prior.label.toLowerCase())+'</b> and the player continues to infringe. '
+      + (atTop ? 'This is the final step on the ladder.' : 'The next game-management action is to <b>'+esc(next.label.toLowerCase())+'</b>.')
+      + '</p>';
+    // The ladder, showing done / next / later
+    html += '<div class="block"><div class="lbl">Game-management ladder [18.6]</div><ol class="gm-ladder">';
+    GM.ladder.forEach(function(step, i){
+      var state = i <= gm.priorIndex ? 'done' : (i === gm.nextIndex ? 'next' : 'later');
+      var mark = state==='done' ? '✓' : (i+1);
+      html += '<li class="gm-'+state+'"><span class="gm-dot">'+mark+'</span><span class="gm-step"><b>'+esc(step.label)+'</b> <code class="r">['+esc(step.ref)+']</code><span class="gm-desc">'+esc(step.desc)+'</span></span></li>';
+    });
+    html += '</ol></div>';
+    // Also penalise the underlying infringement
+    if(underlying){
+      var sm = sanctionMeta(underlying.sanction);
+      html += '<div class="block"><div class="lbl">Also penalise the infringement</div>'
+        + '<p class="gm-underlying">Apply the sanction for <b>'+esc(underlying.ruleName)+(underlying.heading?' — '+esc(underlying.heading):'')+'</b> as normal: '
+        + '<span class="pill '+sm.cls+'" style="vertical-align:middle"><span class="dot"></span>'+esc(sm.label)+'</span> '
+        + esc(underlying.position)+'</p></div>';
+    }
+    html += '<div class="block"><div class="lbl">Procedure</div><ol class="steps">';
+    html += '<li>'+ (underlying
+        ? 'Penalise the '+esc((underlying.terminology||underlying.ruleName)).toLowerCase()+' with its sanction ('+esc(sanctionMeta(underlying.sanction).label).toLowerCase()+').'
+        : 'Penalise the infringement with its sanction.') +'</li>';
+    if(!atTop){
+      html += '<li>Apply the next game-management action — <b>'+esc(next.label.toLowerCase())+'</b>: '+esc(next.desc)+'</li>';
+    } else {
+      html += '<li>'+esc(next.desc)+'</li>';
+    }
+    html += '<li>Keep the action proportionate to the behaviour; if the player still continues, move to the next step on the ladder.</li>';
+    html += '</ol></div>';
+    html += '<div class="note"><b>Note:</b> '+esc(GM.notes)+'</div>';
+    html += '</div></article>';
+    return html;
+  }
+
+  function renderResults(query){
+    var box = $('#results');
+    var qn = ' '+query.toLowerCase().replace(/[^a-z0-9\s'.-]/g,' ')+' ';
+    var ranked = score(query);
+    var gm = detectGameManagement(qn);
+    if(!ranked.length && !gm){
+      box.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><p>No confident match yet. Try naming the action — e.g. <em>“stepped”, “pushed the shooter”, “defended too close”, “ball went out”</em> — or browse the <a href="#" data-jump="library">Rulings Library</a>.</p></div>';
+      wireJump(box); return false;
+    }
+    var html = '';
+    if(gm){
+      // A game-management escalation question: lead with the next action, referencing the underlying infringement.
+      var underlying = ranked.length ? ranked[0].r : null;
+      html += '<div class="result-head"><h2>Game management — what to do next</h2></div>';
+      html += '<div class="asked"><span class="asked-lbl">Your scenario</span><p>'+esc(query)+'</p></div>';
+      html += gmCard(gm, underlying, query);
+      if(underlying){
+        html += '<div class="result-head" style="margin-top:22px"><h2>The underlying infringement</h2></div>';
+        html += rulingCard(underlying, false);
+      }
+      box.innerHTML = html;
+      return true;
+    }
+    var top = ranked[0];
+    var strong = top.s >= 7 || (ranked[1] ? top.s >= ranked[1].s*1.4 : true);
+    var confTxt = strong ? 'Best match' : 'Closest match — check it fits';
+    // Only surface genuinely close alternatives, so a dominant answer stays uncluttered.
+    var thresh = (strong ? 0.6 : 0.4) * top.s;
+    var alts = ranked.slice(1,4).filter(function(x){ return x.s >= thresh && x.s >= 4; }).slice(0,2);
+    html += '<div class="result-head"><h2>'+confTxt+'</h2></div>';
+    html += '<div class="asked"><span class="asked-lbl">Your scenario</span><p>'+esc(query)+'</p></div>';
+    html += rulingCard(top.r, false);
+    // If this ruling turns on the umpire's judgement, offer an interactive decision.
+    if(top.r.decisionId && DECISIONS[top.r.decisionId]){
+      html += decisionHtml(DECISIONS[top.r.decisionId]);
+    }
+    if(alts.length){
+      html += '<div class="result-head" style="margin-top:22px"><h2>Other possibilities</h2></div>';
+      alts.forEach(function(a){ html += rulingCard(a.r, true); });
+    }
+    box.innerHTML = html;
+    wireDecision(box);
+    return true;
+  }
+  function wireJump(scope){
+    $$('[data-jump]', scope).forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); showView(a.dataset.jump); }); });
+  }
+
+  /* ---- Interactive decision (umpire's judgement) ---- */
+  var DECISIONS = DATA.decisions || {};
+  function decisionHtml(dec){
+    var html = '<div class="decide">';
+    html += '<div class="lbl">Make the call — your judgement</div>';
+    html += '<p class="dec-prompt">'+esc(dec.prompt)+'</p>';
+    if(dec.safety){ html += '<div class="dec-safety"><b>Player safety:</b> '+esc(dec.safety)+'</div>'; }
+    if(dec.factors && dec.factors.length){
+      html += '<div class="dec-factors-lbl">Consider [19.12]:</div><ul class="ind dec-factors">';
+      dec.factors.forEach(function(f){ html += '<li>'+esc(f)+'</li>'; });
+      html += '</ul>';
+    }
+    html += '<div class="dec-opts">';
+    dec.options.forEach(function(o){ html += '<button class="dec-opt" type="button" data-key="'+esc(o.key)+'">'+esc(o.label)+'</button>'; });
+    html += '</div>';
+    dec.options.forEach(function(o){
+      var res=o.result, sig=res.signal?SIGNALS.find(function(s){return s.n===res.signal;}):null;
+      var hasSanction = res.sanction && ST[res.sanction];
+      html += '<div class="dec-result" data-key="'+esc(o.key)+'" hidden>';
+      html += '<div class="dec-result-head"><span class="dec-badge">Your call: '+esc(o.label)+'</span></div>';
+      html += '<h4 class="dec-action">'+esc(res.action)+' <code class="r">['+esc(res.refs)+']</code></h4>';
+      html += '<div class="sanction-row">';
+      if(hasSanction){ var sm=sanctionMeta(res.sanction); html += '<span class="pill '+sm.cls+'"><span class="dot"></span>'+esc(sm.label)+'</span>'; }
+      else { html += '<span class="pill none"><span class="dot"></span>No sanction — play on</span>'; }
+      if(sig){ html += '<span class="term"><span class="k">Signal</span><span class="signal-badge" style="margin-right:5px">'+sig.n+'</span>'+esc(sig.name)+'</span>'; }
+      html += '</div>';
+      html += '<p class="dec-detail">'+esc(res.detail)+'</p>';
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+  function wireDecision(scope){
+    $$('.decide', scope).forEach(function(box){
+      var opts=$$('.dec-opt', box), results=$$('.dec-result', box);
+      opts.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          opts.forEach(function(b){ b.setAttribute('aria-pressed', String(b===btn)); });
+          results.forEach(function(r){ r.hidden = (r.getAttribute('data-key')!==btn.getAttribute('data-key')); });
+        });
+      });
+    });
+  }
+
+  var q = $('#q'), goBtn = $('#goBtn'), exWrap = $('#examples');
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function autosize(){ q.style.height='auto'; q.style.height=Math.min(q.scrollHeight,200)+'px'; }
+  q.addEventListener('input', autosize);
+  function scrollToResults(){
+    var r = $('#results'); if(!r) return;
+    var y = r.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({ top:y, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+  // Run a scenario: show the answer, clear the box, hide the example chips,
+  // and bring the results into view. (On no match, keep the text so it can be edited.)
+  function run(text){
+    var v = (typeof text === 'string' ? text : q.value).trim();
+    if(!v) return;
+    var matched = renderResults(v);
+    exWrap.style.display = 'none';
+    if(matched){ q.value=''; autosize(); }
+    else { q.value = v; autosize(); }
+    scrollToResults();
+  }
+  goBtn.addEventListener('click', function(){ run(); });
+  q.addEventListener('keydown', function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); run(); } });
+
+  var EXAMPLES = [
+    "GA lifted her landing foot and put it down again before passing",
+    "Defender was closer than a metre with arms up over the shooter",
+    "GD pushed the shooter as she released the shot",
+    "A long pass flew over a whole third without anyone touching it",
+    "WA stepped into the centre third before the whistle",
+    "GD marked closely with arms outstretched to stop GS getting free",
+    "GK moved into the landing space of an airborne shooter",
+    "The coach shouted that the umpire doesn't know what they're doing",
+    "Blue C kicked the ball as it bounced on the court",
+    "Two opposing players grabbed the ball at exactly the same time"
+  ];
+  EXAMPLES.forEach(function(x){
+    var b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=x;
+    b.addEventListener('click', function(){ run(x); });
+    exWrap.appendChild(b);
+  });
+
+  /* ---- Library: exhaustive rule-by-rule accordion ---- */
+  var libRendered=false, libQuery='';
+  var RULES = (DATA.rules||[]).slice().sort(function(a,b){ return a.no-b.no; });
+  function rulingsForRule(no){
+    return RULINGS.filter(function(r){ return parseInt(String(r.rule),10)===no; });
+  }
+  function rulePanelHtml(rule, rulings){
+    var html='<div class="rule-panel">';
+    if(rule.summary) html+='<p class="rule-summary">'+esc(rule.summary)+'</p>';
+    (rule.sections||[]).forEach(function(sec){
+      html+='<div class="rule-section"><div class="rsec-head">'+esc(sec.heading)+'</div><ul class="rule-points">';
+      (sec.points||[]).forEach(function(pt){ html+='<li>'+esc(pt)+'</li>'; });
+      html+='</ul></div>';
+    });
+    if(rulings.length){
+      html+='<div class="rulings-head">Detailed rulings under this rule ('+rulings.length+')</div>';
+      rulings.forEach(function(r){ html+=rulingCard(r,false); });
+    } else {
+      html+='<div class="rule-none">No penalisable infringement is defined under this rule — see the provisions above.</div>';
+    }
+    html+='</div>';
+    return html;
+  }
+  function sectionText(rule){
+    return (rule.sections||[]).map(function(s){ return s.heading+' '+(s.points||[]).join(' '); }).join(' ');
+  }
+  function ruleMatches(rule, rulings, qn){
+    if(!qn) return true;
+    var hay=(rule.no+' rule '+rule.no+' '+rule.name+' '+(rule.summary||'')+' '+sectionText(rule)).toLowerCase();
+    if(hay.indexOf(qn)>-1) return true;
+    return rulings.some(function(r){
+      var h=(r.title+' '+r.ruleName+' '+(r.heading||'')+' '+r.rule+' '+r.terminology+' '+(r.keywords||[]).join(' ')).toLowerCase();
+      return h.indexOf(qn)>-1;
+    });
+  }
+  function renderLibList(){
+    var list=$('#libList'); var qn=libQuery.toLowerCase().trim();
+    var shown=0, html='';
+    RULES.forEach(function(rule){
+      var rulings=rulingsForRule(rule.no);
+      if(!ruleMatches(rule, rulings, qn)) return;
+      shown++;
+      var openAttr = qn ? ' open' : '';
+      html+='<details class="rule-acc"'+openAttr+'>'
+        +'<summary><span class="rule-no">'+rule.no+'</span>'
+        +'<span class="rule-name">'+esc(rule.name)+'</span>'
+        +'<span class="rule-meta">'+(rulings.length?rulings.length+(rulings.length===1?' ruling':' rulings'):'reference')+'</span>'
+        +'<svg class="rule-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+        +'</summary>'+rulePanelHtml(rule, rulings)+'</details>';
+    });
+    $('#libCount').textContent = qn
+      ? shown+' rule'+(shown===1?'':'s')+' matching “'+libQuery.trim()+'”'
+      : RULES.length+' rules · '+RULINGS.length+' detailed rulings';
+    list.innerHTML = shown ? html
+      : '<div class="empty"><p>No rules or rulings match. Try a different search.</p></div>';
+  }
+  function renderLibrary(){ renderLibList(); }
+  $('#libSearch').addEventListener('input', function(e){ libQuery=e.target.value; renderLibList(); });
+  var expandAllOn=false;
+  $('#expandAll').addEventListener('click', function(){
+    expandAllOn=!expandAllOn;
+    $$('#libList .rule-acc').forEach(function(d){ d.open=expandAllOn; });
+    this.textContent = expandAllOn ? 'Collapse all' : 'Expand all';
+  });
+
+  /* ---- Signals ---- */
+  var sg=$('#sigGrid');
+  sg.innerHTML = SIGNALS.map(function(s){
+    return '<div class="sig"><div class="n">'+s.n+'</div><div><b>'+esc(s.name)+'</b><p>'+esc(s.how)+'</p></div></div>';
+  }).join('');
+
+  // Deep-link support for "browse library" link
+  wireJump(document);
+})();
+</script>

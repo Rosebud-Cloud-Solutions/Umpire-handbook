@@ -1,0 +1,14 @@
+{
+  "name": "netball-umpiring-handbook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Scenario-driven netball umpiring aid grounded in the World Netball Rules of Netball, 2024 Edition.",
+  "scripts": {
+    "build": "python3 build.py",
+    "test": "node tests/scenarios.test.mjs",
+    "screenshots": "node tests/screenshots.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.61.1"
+  }
+}
